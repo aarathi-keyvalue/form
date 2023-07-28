@@ -1,0 +1,252 @@
+import React, { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch } from "react-redux";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import {
+  updateDeclaration,
+  // updateFormData,
+  updateGender,
+  updateName,
+  updatePhoneNumber,
+  updateQualification,
+  updateTndCCheck,
+} from "../../slice";
+import { useCountriesQuery } from "../../services/countries";
+import { SearchIcon } from "../../assets/icons";
+import Select from "../Select";
+import RadioButton from "../RadioButton";
+import Button from "../Button";
+import CheckBox from "../CheckBox";
+import DropDown from "../DropDown";
+import ImageFetcher from "../ImageFetcher";
+import FormSchema from "./FormValidation";
+import Input from "../Input";
+import FamilyDetailsForm from "../FamilyDetailsForm";
+
+const Form = () => {
+  const {
+    register,
+    reset,
+    watch,
+    control,
+    setError,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(FormSchema),
+    defaultValues: {
+      name: "",
+      degree: "",
+      country: "",
+      gender: "",
+      phoneNumber: "",
+      agreeTndC: false,
+      declaration: false,
+      image: null,
+      people: [{ firstName: "", lastName: "", gender: "", age: "" }],
+    },
+  });
+  const { fields, append, remove } = useFieldArray({ name: "people", control });
+  const [countrySearchText, setCountrySearchText] = useState("");
+  const [countryList, setCountryList] = useState([]);
+  const [image, setImage] = useState();
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState();
+
+  const watchCheckbox = watch(["agreeTndC", "declaration"]);
+
+  const dispatch = useDispatch();
+
+  const { data: countries } = useCountriesQuery();
+
+  useEffect(() => {
+    const filteredCountries =
+      countries && countrySearchText === ""
+        ? countries
+        : countries?.filter((country) =>
+            country.toLowerCase().includes(countrySearchText.toLowerCase())
+          );
+    const sortedCountries = filteredCountries
+      ? [...filteredCountries].sort()
+      : [];
+    setCountryList(sortedCountries);
+  }, [countrySearchText, countries]);
+
+  useEffect(() => {
+    setIsSubmitEnabled(watchCheckbox[0] && watchCheckbox[1]);
+  }, [watchCheckbox]);
+
+  const qualificationOptions = {
+    Qualification: "",
+    BTech: "btech",
+    MTech: "mtech",
+  };
+
+  const onNameChange = (e) => {
+    dispatch(updateName({ name: e.target.value }));
+  };
+
+  const onQualificationChange = (e) => {
+    dispatch(updateQualification({ qualification: e.target.value }));
+  };
+
+  const onGenderChange = (e) => {
+    dispatch(updateGender({ gender: e.target.value }));
+  };
+
+  const onPhoneNumberChange = (e) => {
+    dispatch(updatePhoneNumber({ phoneNumber: e.target.value }));
+  };
+
+  const onCheckTndC = (e) => {
+    dispatch(updateTndCCheck(e.target.checked));
+  };
+
+  const onCheckDeclaration = (e) => {
+    dispatch(updateDeclaration(e.target.checked));
+  };
+
+  const onSearchCountry = (e) => {
+    setCountrySearchText(e.target.value);
+  };
+
+  const handleFormSubmit = (data) => {
+    console.log("on submit data", data);
+    // dispatch(updateFormData(data));
+    setCountrySearchText("");
+    setImage("");
+    reset();
+  };
+
+  return (
+    <>
+      <div className="w-full h-[100vh] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
+        <div className="w-full h-fit flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-md sm:h-fit sm:min-w-[700px]">
+          <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <div className="flex gap-y-5 sm:gap-x-2 md:gap-x-5 lg:gap-x-10 items-center flex-col-reverse sm:flex-row">
+              <div className="flex flex-col gap-y-5 sm:gap-y-10">
+                <Input
+                  name="name"
+                  type="text"
+                  onChangeFn={onNameChange}
+                  control={control}
+                  placeholder="Name"
+                  error={errors.name}
+                  required={true}
+                />
+                <Select
+                  options={qualificationOptions}
+                  name="degree"
+                  onChangeHandler={onQualificationChange}
+                  control={control}
+                  error={errors.degree}
+                />
+              </div>
+              <div className="flex justify-center w-[270px]">
+                <ImageFetcher
+                  name="image"
+                  register={register}
+                  control={control}
+                  setValue={setValue}
+                  image={image}
+                  setImage={setImage}
+                  getValue={getValues}
+                  error={errors.image}
+                />
+              </div>
+            </div>
+            <div className="flex flex-col items-center gap-y-5 sm:items-start md:items-end mt-5 sm:mt-9 md:gap-x-5 lg:gap-x-10 md:flex-row">
+              <div className="flex flex-col gap-y-5 sm:gap-y-10">
+                <RadioButton
+                  options={["M", "F"]}
+                  name="gender"
+                  onChangeHandler={onGenderChange}
+                  control={control}
+                  error={errors.gender}
+                />
+                <DropDown
+                  name="country"
+                  control={control}
+                  error={errors.country}
+                  setError={setError}
+                  query={countrySearchText}
+                  clearQuery={() => setCountrySearchText("")}
+                  onChange={onSearchCountry}
+                  setValue={setValue}
+                  getValue={getValues}
+                  inputStyle="w-fit"
+                  placeholder="Country"
+                  endIcon
+                  icon={SearchIcon}
+                  dropdownList={countryList}
+                />
+              </div>
+              <div className="flex justify-center">
+                <Input
+                  name="phoneNumber"
+                  type="number"
+                  className=""
+                  // inputClassName="input-number"
+                  onChangeFn={onPhoneNumberChange}
+                  control={control}
+                  placeholder="Phone Number"
+                  error={errors.phoneNumber}
+                />
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <FamilyDetailsForm
+                control={control}
+                watch={watch}
+                error={errors.people}
+                familyDetails={fields}
+                setError={setError}
+                appendHandler={append}
+                removeHandler={remove}
+              />
+            </div>
+              <div className="flex gap-x-2 mt-10">
+                <CheckBox
+                  name="agreeTndC"
+                  onClick={onCheckTndC}
+                  register={register}
+                  error={errors.agreeTndC}
+                  labelText="I agree to the Terms and Conditions."
+                />
+              </div>
+              <div className="flex items-start gap-x-2 sm:mt-6">
+                <CheckBox
+                  name="declaration"
+                  onClick={onCheckDeclaration}
+                  register={register}
+                  error={errors.declaration}
+                  labelText="I, hereby, declare that the particulars given above are correct
+                and complete."
+                />
+              </div>
+            <div className="mt-8 flex justify-center gap-x-5 sm:gap-x-5 sm:justify-start">
+              <Button
+                label="Clear"
+                type="reset"
+                buttonStyles="bg-comet/50 text-white"
+                onClick={() => {
+                  reset();
+                }}
+              />
+              <Button
+                label="Submit"
+                type="submit"
+                disable={!isSubmitEnabled}
+                buttonStyles="bg-primaryColor text-white"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Form;
