@@ -5,7 +5,6 @@ import { useFieldArray, useForm } from "react-hook-form";
 
 import {
   updateDeclaration,
-  // updateFormData,
   updateGender,
   updateName,
   updatePhoneNumber,
@@ -14,15 +13,18 @@ import {
 } from "../../slice";
 import { useCountriesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
-import Select from "../Select";
-import RadioButton from "../RadioButton";
-import Button from "../Button";
-import CheckBox from "../CheckBox";
-import DropDown from "../DropDown";
-import ImageFetcher from "../ImageFetcher";
+import { GENDER, QUALIFICATIONS } from "../../constants/form";
+import {
+  Button,
+  CheckBox,
+  DropDown,
+  ImageFetcher,
+  Input,
+  RadioButton,
+  Select,
+} from "../../components";
 import FormSchema from "./FormValidation";
-import Input from "../Input";
-import FamilyDetailsForm from "../FamilyDetailsForm";
+import FamilyDetailsForm from "./components/FamilyDetailsForm";
 
 const Form = () => {
   const {
@@ -50,6 +52,7 @@ const Form = () => {
     },
   });
   const { fields, append, remove } = useFieldArray({ name: "people", control });
+  
   const [countrySearchText, setCountrySearchText] = useState("");
   const [countryList, setCountryList] = useState([]);
   const [image, setImage] = useState();
@@ -77,12 +80,6 @@ const Form = () => {
   useEffect(() => {
     setIsSubmitEnabled(watchCheckbox[0] && watchCheckbox[1]);
   }, [watchCheckbox]);
-
-  const qualificationOptions = {
-    Qualification: "",
-    BTech: "btech",
-    MTech: "mtech",
-  };
 
   const onNameChange = (e) => {
     dispatch(updateName({ name: e.target.value }));
@@ -113,8 +110,7 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
-    console.log("on submit data", data);
-    // dispatch(updateFormData(data));
+    console.log("Submitted Data", data);
     setCountrySearchText("");
     setImage("");
     reset();
@@ -137,7 +133,7 @@ const Form = () => {
                   required={true}
                 />
                 <Select
-                  options={qualificationOptions}
+                  options={QUALIFICATIONS}
                   name="degree"
                   onChangeHandler={onQualificationChange}
                   control={control}
@@ -160,7 +156,7 @@ const Form = () => {
             <div className="flex flex-col items-center gap-y-5 sm:items-start md:items-end mt-5 sm:mt-9 md:gap-x-5 lg:gap-x-10 md:flex-row">
               <div className="flex flex-col gap-y-5 sm:gap-y-10">
                 <RadioButton
-                  options={["M", "F"]}
+                  options={GENDER}
                   name="gender"
                   onChangeHandler={onGenderChange}
                   control={control}
@@ -207,25 +203,25 @@ const Form = () => {
                 removeHandler={remove}
               />
             </div>
-              <div className="flex gap-x-2 mt-10">
-                <CheckBox
-                  name="agreeTndC"
-                  onClick={onCheckTndC}
-                  register={register}
-                  error={errors.agreeTndC}
-                  labelText="I agree to the Terms and Conditions."
-                />
-              </div>
-              <div className="flex items-start gap-x-2 sm:mt-6">
-                <CheckBox
-                  name="declaration"
-                  onClick={onCheckDeclaration}
-                  register={register}
-                  error={errors.declaration}
-                  labelText="I, hereby, declare that the particulars given above are correct
+            <div className="flex gap-x-2 mt-10">
+              <CheckBox
+                name="agreeTndC"
+                onClick={onCheckTndC}
+                register={register}
+                error={errors.agreeTndC}
+                labelText="I agree to the Terms and Conditions."
+              />
+            </div>
+            <div className="flex items-start gap-x-2 sm:mt-6">
+              <CheckBox
+                name="declaration"
+                onClick={onCheckDeclaration}
+                register={register}
+                error={errors.declaration}
+                labelText="I, hereby, declare that the particulars given above are correct
                 and complete."
-                />
-              </div>
+              />
+            </div>
             <div className="mt-8 flex justify-center gap-x-5 sm:gap-x-5 sm:justify-start">
               <Button
                 label="Clear"
