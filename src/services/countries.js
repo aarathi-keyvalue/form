@@ -2,12 +2,15 @@ import { countriesApi } from "./api";
 
 const countryApi = countriesApi.injectEndpoints({
   endpoints: (build) => ({
-    countries: build.query({
-      query: () => "",
+    getCountryNames: build.query({
+      query: () => "?fields=name",
       transformResponse: (response) =>
         response.map((country) => country.name.common),
+    }),
+    getCountries: build.query({
+      query: () => "",
     }),
   }),
 });
 
-export const { useCountriesQuery } = countryApi;
+export const { useGetCountryNamesQuery, useGetCountriesQuery } = countryApi;

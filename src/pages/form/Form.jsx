@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
 
-import { useCountriesQuery } from "../../services/countries";
+import { useGetCountryNamesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
 import { GENDER, QUALIFICATIONS } from "../../constants/form";
 import {
@@ -14,8 +14,10 @@ import {
   RadioButton,
   Select,
 } from "../../components";
+import { topBarConstants } from "../../constants/common";
 import FormSchema from "./FormValidation";
 import FamilyDetailsForm from "./components/FamilyDetailsForm";
+import TopBar from "../../components/TopBar";
 
 const Form = () => {
   const {
@@ -43,7 +45,7 @@ const Form = () => {
     },
   });
   const { fields, append, remove } = useFieldArray({ name: "people", control });
-  
+
   const [countrySearchText, setCountrySearchText] = useState("");
   const [countryList, setCountryList] = useState([]);
   const [image, setImage] = useState();
@@ -51,7 +53,7 @@ const Form = () => {
 
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
-  const { data: countries } = useCountriesQuery();
+  const { data: countries } = useGetCountryNamesQuery();
 
   useEffect(() => {
     const filteredCountries =
@@ -82,8 +84,9 @@ const Form = () => {
   };
 
   return (
-    <>
-      <div className="w-full h-[100vh] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
+    <div className="w-full h-full">
+      <TopBar headerText={topBarConstants.PERSONAL_DETAILS} />
+      <div className="w-full h-[calc(100vh-100px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
         <div className="w-full h-fit flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-md sm:h-fit sm:min-w-[700px]">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className="flex gap-y-5 sm:gap-x-2 md:gap-x-5 lg:gap-x-10 items-center flex-col-reverse sm:flex-row">
@@ -144,8 +147,7 @@ const Form = () => {
                 <Input
                   name="phoneNumber"
                   type="number"
-                  className=""
-                  inputClassName="input-type-number"
+                  inputClassName=""
                   control={control}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
@@ -199,7 +201,7 @@ const Form = () => {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

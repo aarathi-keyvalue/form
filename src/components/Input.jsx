@@ -5,9 +5,8 @@ const Input = (props) => {
     name,
     placeholder,
     type = "text",
-    className = "",
     control,
-    error='',
+    error = "",
     onChangeFn = () => {},
     inputClassName = "",
   } = props;
@@ -16,9 +15,8 @@ const Input = (props) => {
     <Controller
       name={name}
       control={control}
-      defaultValue=""
       render={({ field }) => (
-        <label className={`relative cursor-text sm:max-w-[270px] ${className}`}>
+        <label className="relative cursor-text sm:max-w-[270px]">
           <input
             type={type}
             placeholder=" "

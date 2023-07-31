@@ -31,7 +31,6 @@ const ImageFetcher = ({
     <Controller
       name={name}
       control={control}
-      defaultValue=""
       render={({ field }) => (
         <div className="flex flex-col items-center">
           <div
