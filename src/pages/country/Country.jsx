@@ -16,10 +16,10 @@ const Country = () => {
     <div className="w-full h-full">
       <TopBar headerText={topBarConstants.COUNTRY_LIST} />
       <div className="w-full h-[calc(100vh-100px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
-        <div className="grid grid-cols-4 gap-x-4 gap-y-4 lg:gap-x-10 lg:gap-y-10">
+        <div className="grid gap-x-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-10 lg:gap-x-10">
           {sortedCountries?.map((country) => (
             <CountryCard
-              key={country.cioc}
+              key={country.name.common}
               flag={country.flags.png}
               name={country.name.common}
               population={country.population}

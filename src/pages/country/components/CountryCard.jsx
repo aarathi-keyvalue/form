@@ -5,7 +5,7 @@ const CountryCard = (props) => {
   const { flag, name, population, region, capital } = props;
   return (
     <div className="w-full border flex flex-col items-center bg-white rounded-md shadow-md">
-      <div className="w-full h-[120px] flex justify-center items-center rounded-t-md">
+      <div className="w-full flex justify-center items-center rounded-t-md sm:h-[180px]">
         <img src={flag} alt={name} className="w-full h-full object-cover rounded-t-md" />
       </div>
       <div className="relative flex flex-col pt-4 px-5 pb-16 items-start w-full">
