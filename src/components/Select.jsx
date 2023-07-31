@@ -12,7 +12,6 @@ const Select = ({
     <Controller
       name={name}
       control={control}
-      defaultValue=""
       render={({ field }) => (
         <div className="relative border border-cloud rounded-md">
           <select

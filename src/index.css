@@ -9,8 +9,8 @@ input:focus ~ .input-custom-label {
   @apply transform -translate-y-[27px] translate-x-1 scale-90;
 }
 
-.input-type-number input[type=number]::-webkit-inner-spin-button,
-.input-type-number input[type=number]::-webkit-outer-spin-button { 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
 }

@@ -1,9 +1,12 @@
-import Form from "./pages/form/Form";
+import { HashRouter as Router } from "react-router-dom";
+import RouteLayout from "./routes/RouteLayout";
 
 function App() {
   return (
     <div className="App">
-      <Form />
+      <Router>
+        <RouteLayout />
+      </Router>
     </div>
   );
 }

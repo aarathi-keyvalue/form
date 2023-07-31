@@ -1,11 +1,16 @@
 import { Controller } from "react-hook-form";
 
-const RadioButton = ({ options, name, onChangeHandler, control, error }) => {
+const RadioButton = ({
+  options,
+  name,
+  onChangeHandler = () => {},
+  control,
+  error,
+}) => {
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue=""
       render={({ field }) => (
         <div className="flex gap-x-5 relative">
           {Object.keys(options).map((label) => (
@@ -19,10 +24,14 @@ const RadioButton = ({ options, name, onChangeHandler, control, error }) => {
                   onChangeHandler(e);
                 }}
               />
-              <label>{label}</label>
+              <label className="font-normal">{label}</label>
             </div>
           ))}
-          {error && <span className="absolute -bottom-4 left-2 text-xs text-warningRed">{error.message.toString()}</span>}
+          {error && (
+            <span className="absolute -bottom-4 left-2 text-xs text-warningRed">
+              {error.message.toString()}
+            </span>
+          )}
         </div>
       )}
     />
