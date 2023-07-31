@@ -8,18 +8,18 @@ const RadioButton = ({ options, name, onChangeHandler, control, error }) => {
       defaultValue=""
       render={({ field }) => (
         <div className="flex gap-x-5 relative">
-          {options.map((option) => (
-            <div className="flex items-center gap-x-2" key={option}>
+          {Object.keys(options).map((label) => (
+            <div className="flex items-center gap-x-2" key={options[label]}>
               <input
                 type="radio"
                 name={name}
-                value={option}
+                value={options[label]}
                 onChange={(e) => {
                   field.onChange(e);
                   onChangeHandler(e);
                 }}
               />
-              <label>{option}</label>
+              <label>{label}</label>
             </div>
           ))}
           {error && <span className="absolute -bottom-4 left-2 text-xs text-warningRed">{error.message.toString()}</span>}

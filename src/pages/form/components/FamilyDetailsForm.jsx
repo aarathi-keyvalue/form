@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { DeleteIcon, PlusIcon } from "../assets/icons";
-import Input from "./Input";
-import Select from "./Select";
+import { DeleteIcon, PlusIcon } from "../../../assets/icons";
+import Input from "../../../components/Input";
+import Select from "../../../components/Select";
+import { GENDER_SELECT } from "../../../constants/form";
 
 const FamilyDetailsForm = ({
   control,
@@ -13,20 +14,14 @@ const FamilyDetailsForm = ({
   appendHandler,
   removeHandler,
 }) => {
-  //   const [isDesktop, setDesktop] = useState(window.innerWidth > 650);
-  //   const [isTablet, setTablet] = useState(window.innerWidth > 768);
   const [isMobile, setMobile] = useState(window.innerWidth < 1024);
 
-  const updateMedia = () => {
-    // setDesktop(window.innerWidth > 1024);
-    // setTablet(window.innerWidth > 768);
-    setMobile(window.innerWidth < 1024);
-  };
+  const updateMedia = () => setMobile(window.innerWidth < 1024);
 
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
-  });
+  }, []);
 
   const onAddClick = (index) => {
     const currentItem = watch("people")[index];
@@ -96,12 +91,7 @@ const FamilyDetailsForm = ({
                 name={`people[${index}].gender`}
                 control={control}
                 error={error && error[index]?.gender}
-                options={{
-                  Gender: "",
-                  Male: "M",
-                  Female: "F",
-                  Others: "Others",
-                }}
+                options={GENDER_SELECT}
                 onChangeHandler={clearErrorOnChange}
                 selectClassName="w-36 sm:w-28"
               />
@@ -154,7 +144,7 @@ const FamilyDetailsForm = ({
                 )}
               </div>
             )}
-            {error && index === familyDetails.length-1 && (
+            {error && index === familyDetails.length - 1 && (
               <span
                 className={`absolute left-2 text-xs text-warningRed ${
                   isMobile ? "-top-4" : "bottom-0"

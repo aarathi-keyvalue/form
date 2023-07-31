@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Controller } from "react-hook-form";
 
-import { Avatar5, Camera } from "../assets/images";
+import { Avatar, Camera } from "../assets/images";
 
 const ImageFetcher = ({
   name,
@@ -10,7 +10,6 @@ const ImageFetcher = ({
   setValue,
   image = "",
   setImage = () => {},
-  getValue,
   error,
 }) => {
   const { ref } = register(name);
@@ -41,7 +40,7 @@ const ImageFetcher = ({
           >
             <img
               className="object-contain rounded-full border-comet h-20 w-20 sm:h-[120px] sm:w-[120px]"
-              src={image === "" ? Avatar5 : image.preview}
+              src={image === "" ? Avatar : image.preview}
               alt="profile"
               height={120}
               width={120}

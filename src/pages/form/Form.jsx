@@ -1,28 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
 import { useFieldArray, useForm } from "react-hook-form";
 
-import {
-  updateDeclaration,
-  // updateFormData,
-  updateGender,
-  updateName,
-  updatePhoneNumber,
-  updateQualification,
-  updateTndCCheck,
-} from "../../slice";
 import { useCountriesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
-import Select from "../Select";
-import RadioButton from "../RadioButton";
-import Button from "../Button";
-import CheckBox from "../CheckBox";
-import DropDown from "../DropDown";
-import ImageFetcher from "../ImageFetcher";
+import { GENDER, QUALIFICATIONS } from "../../constants/form";
+import {
+  Button,
+  CheckBox,
+  DropDown,
+  ImageFetcher,
+  Input,
+  RadioButton,
+  Select,
+} from "../../components";
 import FormSchema from "./FormValidation";
-import Input from "../Input";
-import FamilyDetailsForm from "../FamilyDetailsForm";
+import FamilyDetailsForm from "./components/FamilyDetailsForm";
 
 const Form = () => {
   const {
@@ -50,14 +43,13 @@ const Form = () => {
     },
   });
   const { fields, append, remove } = useFieldArray({ name: "people", control });
+  
   const [countrySearchText, setCountrySearchText] = useState("");
   const [countryList, setCountryList] = useState([]);
   const [image, setImage] = useState();
   const [isSubmitEnabled, setIsSubmitEnabled] = useState();
 
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
-
-  const dispatch = useDispatch();
 
   const { data: countries } = useCountriesQuery();
 
@@ -78,43 +70,12 @@ const Form = () => {
     setIsSubmitEnabled(watchCheckbox[0] && watchCheckbox[1]);
   }, [watchCheckbox]);
 
-  const qualificationOptions = {
-    Qualification: "",
-    BTech: "btech",
-    MTech: "mtech",
-  };
-
-  const onNameChange = (e) => {
-    dispatch(updateName({ name: e.target.value }));
-  };
-
-  const onQualificationChange = (e) => {
-    dispatch(updateQualification({ qualification: e.target.value }));
-  };
-
-  const onGenderChange = (e) => {
-    dispatch(updateGender({ gender: e.target.value }));
-  };
-
-  const onPhoneNumberChange = (e) => {
-    dispatch(updatePhoneNumber({ phoneNumber: e.target.value }));
-  };
-
-  const onCheckTndC = (e) => {
-    dispatch(updateTndCCheck(e.target.checked));
-  };
-
-  const onCheckDeclaration = (e) => {
-    dispatch(updateDeclaration(e.target.checked));
-  };
-
   const onSearchCountry = (e) => {
     setCountrySearchText(e.target.value);
   };
 
   const handleFormSubmit = (data) => {
-    console.log("on submit data", data);
-    // dispatch(updateFormData(data));
+    console.log("Submitted Data", data);
     setCountrySearchText("");
     setImage("");
     reset();
@@ -130,16 +91,14 @@ const Form = () => {
                 <Input
                   name="name"
                   type="text"
-                  onChangeFn={onNameChange}
                   control={control}
                   placeholder="Name"
                   error={errors.name}
                   required={true}
                 />
                 <Select
-                  options={qualificationOptions}
+                  options={QUALIFICATIONS}
                   name="degree"
-                  onChangeHandler={onQualificationChange}
                   control={control}
                   error={errors.degree}
                 />
@@ -152,7 +111,6 @@ const Form = () => {
                   setValue={setValue}
                   image={image}
                   setImage={setImage}
-                  getValue={getValues}
                   error={errors.image}
                 />
               </div>
@@ -160,9 +118,8 @@ const Form = () => {
             <div className="flex flex-col items-center gap-y-5 sm:items-start md:items-end mt-5 sm:mt-9 md:gap-x-5 lg:gap-x-10 md:flex-row">
               <div className="flex flex-col gap-y-5 sm:gap-y-10">
                 <RadioButton
-                  options={["M", "F"]}
+                  options={GENDER}
                   name="gender"
-                  onChangeHandler={onGenderChange}
                   control={control}
                   error={errors.gender}
                 />
@@ -188,8 +145,7 @@ const Form = () => {
                   name="phoneNumber"
                   type="number"
                   className=""
-                  // inputClassName="input-number"
-                  onChangeFn={onPhoneNumberChange}
+                  inputClassName="input-type-number"
                   control={control}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
@@ -207,25 +163,23 @@ const Form = () => {
                 removeHandler={remove}
               />
             </div>
-              <div className="flex gap-x-2 mt-10">
-                <CheckBox
-                  name="agreeTndC"
-                  onClick={onCheckTndC}
-                  register={register}
-                  error={errors.agreeTndC}
-                  labelText="I agree to the Terms and Conditions."
-                />
-              </div>
-              <div className="flex items-start gap-x-2 sm:mt-6">
-                <CheckBox
-                  name="declaration"
-                  onClick={onCheckDeclaration}
-                  register={register}
-                  error={errors.declaration}
-                  labelText="I, hereby, declare that the particulars given above are correct
+            <div className="flex gap-x-2 mt-10">
+              <CheckBox
+                name="agreeTndC"
+                register={register}
+                error={errors.agreeTndC}
+                labelText="I agree to the Terms and Conditions."
+              />
+            </div>
+            <div className="flex items-start gap-x-2 sm:mt-6">
+              <CheckBox
+                name="declaration"
+                register={register}
+                error={errors.declaration}
+                labelText="I, hereby, declare that the particulars given above are correct
                 and complete."
-                />
-              </div>
+              />
+            </div>
             <div className="mt-8 flex justify-center gap-x-5 sm:gap-x-5 sm:justify-start">
               <Button
                 label="Clear"
