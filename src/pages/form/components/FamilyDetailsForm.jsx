@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { DeleteIcon, PlusIcon } from "../../../assets/icons";
 import Input from "../../../components/Input";
 import Select from "../../../components/Select";
+import { GENDER_SELECT } from "../../../constants/form";
 
 const FamilyDetailsForm = ({
   control,
@@ -90,12 +91,7 @@ const FamilyDetailsForm = ({
                 name={`people[${index}].gender`}
                 control={control}
                 error={error && error[index]?.gender}
-                options={{
-                  Gender: "",
-                  Male: "M",
-                  Female: "F",
-                  Others: "Others",
-                }}
+                options={GENDER_SELECT}
                 onChangeHandler={clearErrorOnChange}
                 selectClassName="w-36 sm:w-28"
               />

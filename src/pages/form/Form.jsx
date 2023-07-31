@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
 import { useFieldArray, useForm } from "react-hook-form";
 
-import {
-  updateDeclaration,
-  updateGender,
-  updateName,
-  updatePhoneNumber,
-  updateQualification,
-  updateTndCCheck,
-} from "../../slice";
 import { useCountriesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
 import { GENDER, QUALIFICATIONS } from "../../constants/form";
@@ -60,8 +51,6 @@ const Form = () => {
 
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
-  const dispatch = useDispatch();
-
   const { data: countries } = useCountriesQuery();
 
   useEffect(() => {
@@ -80,30 +69,6 @@ const Form = () => {
   useEffect(() => {
     setIsSubmitEnabled(watchCheckbox[0] && watchCheckbox[1]);
   }, [watchCheckbox]);
-
-  const onNameChange = (e) => {
-    dispatch(updateName({ name: e.target.value }));
-  };
-
-  const onQualificationChange = (e) => {
-    dispatch(updateQualification({ qualification: e.target.value }));
-  };
-
-  const onGenderChange = (e) => {
-    dispatch(updateGender({ gender: e.target.value }));
-  };
-
-  const onPhoneNumberChange = (e) => {
-    dispatch(updatePhoneNumber({ phoneNumber: e.target.value }));
-  };
-
-  const onCheckTndC = (e) => {
-    dispatch(updateTndCCheck(e.target.checked));
-  };
-
-  const onCheckDeclaration = (e) => {
-    dispatch(updateDeclaration(e.target.checked));
-  };
 
   const onSearchCountry = (e) => {
     setCountrySearchText(e.target.value);
@@ -126,7 +91,6 @@ const Form = () => {
                 <Input
                   name="name"
                   type="text"
-                  onChangeFn={onNameChange}
                   control={control}
                   placeholder="Name"
                   error={errors.name}
@@ -135,7 +99,6 @@ const Form = () => {
                 <Select
                   options={QUALIFICATIONS}
                   name="degree"
-                  onChangeHandler={onQualificationChange}
                   control={control}
                   error={errors.degree}
                 />
@@ -148,7 +111,6 @@ const Form = () => {
                   setValue={setValue}
                   image={image}
                   setImage={setImage}
-                  getValue={getValues}
                   error={errors.image}
                 />
               </div>
@@ -158,7 +120,6 @@ const Form = () => {
                 <RadioButton
                   options={GENDER}
                   name="gender"
-                  onChangeHandler={onGenderChange}
                   control={control}
                   error={errors.gender}
                 />
@@ -184,8 +145,7 @@ const Form = () => {
                   name="phoneNumber"
                   type="number"
                   className=""
-                  // inputClassName="input-number"
-                  onChangeFn={onPhoneNumberChange}
+                  inputClassName="input-type-number"
                   control={control}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
@@ -206,7 +166,6 @@ const Form = () => {
             <div className="flex gap-x-2 mt-10">
               <CheckBox
                 name="agreeTndC"
-                onClick={onCheckTndC}
                 register={register}
                 error={errors.agreeTndC}
                 labelText="I agree to the Terms and Conditions."
@@ -215,7 +174,6 @@ const Form = () => {
             <div className="flex items-start gap-x-2 sm:mt-6">
               <CheckBox
                 name="declaration"
-                onClick={onCheckDeclaration}
                 register={register}
                 error={errors.declaration}
                 labelText="I, hereby, declare that the particulars given above are correct

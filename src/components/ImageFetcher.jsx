@@ -10,7 +10,6 @@ const ImageFetcher = ({
   setValue,
   image = "",
   setImage = () => {},
-  getValue,
   error,
 }) => {
   const { ref } = register(name);
