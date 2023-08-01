@@ -14,7 +14,7 @@ const countryApi = countriesApi.injectEndpoints({
       query: ({ name }) =>
         `name/${encodeURIComponent(
           name
-        )}?fullText=true&fields=name,population,region,capital,flags`,
+        )}?fullText=true&fields=name,population,region,subregion,capital,flags,currencies,languages`,
     }),
   }),
 });
