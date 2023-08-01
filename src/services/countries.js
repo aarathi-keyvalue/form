@@ -8,7 +8,7 @@ const countryApi = countriesApi.injectEndpoints({
         response.map((country) => country.name.common),
     }),
     getCountries: build.query({
-      query: () => "",
+      query: () => "?fields=name,flags,population,capital,region",
     }),
   }),
 });
