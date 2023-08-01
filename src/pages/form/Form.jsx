@@ -86,7 +86,7 @@ const Form = () => {
   return (
     <div className="w-full h-full">
       <TopBar headerText={topBarConstants.PERSONAL_DETAILS} />
-      <div className="w-full h-[calc(100vh-100px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
+      <div className="w-full h-[calc(100vh-93px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
         <div className="w-full h-fit flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-md sm:h-fit sm:min-w-[700px]">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className="flex gap-y-5 sm:gap-x-2 md:gap-x-5 lg:gap-x-10 items-center flex-col-reverse sm:flex-row">

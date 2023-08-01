@@ -14,4 +14,5 @@ export const navConstants = [
 export const topBarConstants = {
   PERSONAL_DETAILS: "Personal Details",
   COUNTRY_LIST: "Country List",
+  COUNTRY_DETAILS: "Country Detail"
 };

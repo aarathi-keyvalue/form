@@ -1,10 +1,22 @@
+import { useNavigate } from "react-router";
+
 import { RightArrowIcon } from "../../../assets/icons";
 import { COLORS } from "../../../constants/colors";
+import { routes } from "../../../routes/routes";
 
 const CountryCard = (props) => {
   const { flag, name, population, region, capital } = props;
+  const navigate = useNavigate();
+
+  const handleCountryClick = () => {
+    navigate(`${routes.COUNTRY_LIST}/${name}`);
+  };
+
   return (
-    <div className="w-full border flex flex-col items-center bg-white rounded-md shadow-sm cursor-pointer transition-all duration-300 hover:scale-95 hover:shadow-md">
+    <div
+      className="w-full border flex flex-col items-center bg-white rounded-md shadow-sm cursor-pointer transition-all duration-300 hover:scale-95 hover:shadow-md"
+      onClick={handleCountryClick}
+    >
       <div className="w-full flex justify-center items-center rounded-t-md sm:h-[180px]">
         <img
           src={flag}
