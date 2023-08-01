@@ -1,16 +1,8 @@
-import { useNavigate } from "react-router";
-
 import { RightArrowIcon } from "../../../assets/icons";
 import { COLORS } from "../../../constants/colors";
-import { routes } from "../../../routes/routes";
 
 const CountryCard = (props) => {
-  const { flag, name, population, region, capital } = props;
-  const navigate = useNavigate();
-
-  const handleCountryClick = () => {
-    navigate(`${routes.COUNTRY_LIST}/${name}`);
-  };
+  const { flag, name, population, region, capital, handleCountryClick } = props;
 
   return (
     <div
