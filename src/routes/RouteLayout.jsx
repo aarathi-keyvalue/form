@@ -5,6 +5,7 @@ import { routes } from "./routes";
 import { navConstants } from "../constants/common";
 import Form from "../pages/form/Form";
 import Country from "../pages/country/Country";
+import CountryDetail from "../pages/country-detail/CountryDetail";
 
 const RouteLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
@@ -41,6 +42,10 @@ const RouteLayout = () => {
       <Routes>
         <Route path={routes.COUNTRY_LIST} element={<Country />} />
         <Route path={routes.FORM} element={<Form />} />
+        <Route
+          path={`${routes.COUNTRY_LIST}/:country`}
+          element={<CountryDetail />}
+        />
         <Route
           path={routes.ALL}
           element={<Navigate replace={true} to={routes.FORM} />}
