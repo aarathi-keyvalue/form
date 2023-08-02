@@ -6,9 +6,12 @@ import { navConstants } from "../constants/common";
 import Form from "../pages/form/Form";
 import Country from "../pages/country/Country";
 import CountryDetail from "../pages/country-detail/CountryDetail";
+import FloatingBtn from "../components/FloatingBtn";
+import AddPopup from "../components/AddPopup/AddPopup";
 
 const RouteLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
+  const [showPopup, setShowPopup] = useState(false);
 
   const navigate = useNavigate();
   const { hash } = window.location;
@@ -23,7 +26,7 @@ const RouteLayout = () => {
   };
 
   return (
-    <div className="w-full h-[100vh] flex">
+    <div className="relative w-full h-[100vh] flex">
       <div className="w-1/5 h-full px-2 py-20 flex flex-col gap-y-3 border-r">
         {navConstants.map((navItem) => (
           <div
@@ -51,6 +54,14 @@ const RouteLayout = () => {
           element={<Navigate replace={true} to={routes.FORM} />}
         />
       </Routes>
+      {showPopup ? (
+        <AddPopup onClick={() => setShowPopup(false)} />
+      ) : (
+        <FloatingBtn
+          onClick={() => setShowPopup(true)}
+          className="absolute bottom-3 right-7 float-right"
+        />
+      )}
     </div>
   );
 };
