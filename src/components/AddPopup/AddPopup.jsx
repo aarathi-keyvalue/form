@@ -5,6 +5,7 @@ import { DownArrow } from "../../assets/icons";
 import Input from "../Input";
 import Button from "../Button";
 import PopupFormSchema from "./PopupFormValidation";
+import TextArea from "../TextArea";
 
 const AddPopup = (props) => {
   const { onClick } = props;
@@ -28,7 +29,7 @@ const AddPopup = (props) => {
   };
 
   return (
-    <div className="absolute bottom-3 right-7 bg-white z-10 p-3 border shadow-lg rounded-md">
+    <div className="absolute bottom-3 right-7 bg-white z-10 p-3 border shadow-lg rounded-lg">
       <div className="relative">
         <div
           className="absolute -top-14 right-0 bg-primaryColor h-8 w-8 flex items-center justify-center rounded-full cursor-pointer"
@@ -64,7 +65,7 @@ const AddPopup = (props) => {
             control={control}
             error={errors?.["title"]}
           />
-          <Input
+          <TextArea
             name="desc"
             placeholder="Description"
             control={control}

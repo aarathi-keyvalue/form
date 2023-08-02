@@ -7,7 +7,7 @@ const PopupFormSchema = yup.object().shape({
     .required("Required field")
     .matches(/^[0-9]{10}$/, { message: "Invalid phone number" }),
   email: yup.string().email("Invalid Email").required("Required field"),
-  text: yup.string().required("Required field"),
+  title: yup.string().required("Required field"),
   desc: yup.string().required("Required field"),
 });
 
