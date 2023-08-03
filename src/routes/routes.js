@@ -3,5 +3,5 @@ export const routes = {
   FORM: "/form",
   COUNTRY_LIST: "/country",
   SIGN_UP: "/signup",
-  SIGN_IN: "/signin",
+  LOGIN: "/login",
 };

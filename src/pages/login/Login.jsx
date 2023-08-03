@@ -1,29 +1,36 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { Button, Input } from "../../components";
-import SignUpFormSchema from "./SignupFormValidation";
+import { routes } from "../../routes/routes";
+import LoginFormSchema from "./LoginFormValidation";
 
-const Signup = () => {
+const Login = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(SignUpFormSchema),
+    resolver: yupResolver(LoginFormSchema),
     defaultValues: {
       username: "",
       password: "",
-      confirmPassword: "",
     },
   });
+
+  const navigate = useNavigate();
+
+  const onSignupClick = () => {
+    navigate(`${routes.SIGN_UP}`);
+  };
 
   const handleFormSubmit = (data) => console.log("data", data);
 
   return (
     <div className="w-full h-full flex justify-center items-center">
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="h-fit flex flex-col gap-y-7 border p-10 pb-14 rounded-md shadow-md">
+        <div className="relative h-fit flex flex-col gap-y-7 border p-10 pb-14 rounded-md shadow-md">
           <Input
             name="username"
             placeholder="Username"
@@ -36,21 +43,24 @@ const Signup = () => {
             control={control}
             error={errors.password}
           />
-          <Input
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            control={control}
-            error={errors.confirmPassword}
-          />
           <Button
             label="Submit"
             type="submit"
             buttonStyles="bg-primaryColor w-full text-white font-medium"
           />
+          <div className="absolute bottom-7 left-20 flex gap-x-2">
+            <span className="text-xs">Don't have an account?</span>
+            <span
+              className="text-xs text-primaryColor cursor-pointer"
+              onClick={onSignupClick}
+            >
+              Sign Up
+            </span>
+          </div>
         </div>
       </form>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
