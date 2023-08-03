@@ -1,7 +1,7 @@
 import { Controller } from "react-hook-form";
 
 const TextArea = (props) => {
-  const { name, placeholder, control, error } = props;
+  const { name, placeholder, control, error, onChangeFn = () => {} } = props;
   return (
     <Controller
       name={name}
@@ -15,6 +15,10 @@ const TextArea = (props) => {
                 ? "focus-within:border-warningRed"
                 : "focus-within:border-primaryColor"
             } placeholder:text-sm py-1`}
+            onChange={(e) => {
+              field.onChange(e);
+              onChangeFn(e);
+            }}
           />
           {error && (
             <span className="absolute -bottom-3 left-2 text-xs text-warningRed">
