@@ -8,7 +8,8 @@ import PopupFormSchema from "./PopupFormValidation";
 import TextArea from "../TextArea";
 
 const AddPopup = (props) => {
-  const { onClick } = props;
+  const { onClick, isOpen } = props;
+
   const {
     control,
     handleSubmit,
@@ -29,7 +30,11 @@ const AddPopup = (props) => {
   };
 
   return (
-    <div className="absolute bottom-3 right-7 bg-white z-10 p-3 border shadow-lg rounded-lg">
+    <div
+      className={`absolute bottom-3 right-7 bg-white z-10 p-3 border shadow-lg rounded-lg ${
+        isOpen ? "animate-slide-to-top" : "animate-slide-to-bottom"
+      }`}
+    >
       <div className="relative">
         <div
           className="absolute -top-14 right-0 bg-primaryColor h-8 w-8 flex items-center justify-center rounded-full cursor-pointer"

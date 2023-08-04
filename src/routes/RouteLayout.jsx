@@ -11,7 +11,14 @@ import AddPopup from "../components/AddPopup/AddPopup";
 
 const RouteLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
-  const [showPopup, setShowPopup] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(isOpen);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setTimeout(() => setShowPopup(false), 710);
+    } else setShowPopup(isOpen);
+  }, [isOpen]);
 
   const navigate = useNavigate();
   const { hash } = window.location;
@@ -26,7 +33,7 @@ const RouteLayout = () => {
   };
 
   return (
-    <div className="relative w-full h-[100vh] flex">
+    <div className="relative w-full h-[100vh] flex overflow-y-hidden">
       <div className="w-1/5 h-full px-2 py-20 flex flex-col gap-y-3 border-r">
         {navConstants.map((navItem) => (
           <div
@@ -55,10 +62,13 @@ const RouteLayout = () => {
         />
       </Routes>
       {showPopup ? (
-        <AddPopup onClick={() => setShowPopup(false)} />
+        <AddPopup
+          isOpen={isOpen}
+          onClick={() => setIsOpen(false)}
+        />
       ) : (
         <FloatingBtn
-          onClick={() => setShowPopup(true)}
+          onClick={() => setIsOpen(true)}
           className="absolute bottom-3 right-7 float-right"
         />
       )}
