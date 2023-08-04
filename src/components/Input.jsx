@@ -19,6 +19,7 @@ const Input = (props) => {
         <label className="relative cursor-text sm:max-w-[270px]">
           <input
             type={type}
+            value={field.value}
             placeholder=" "
             onChange={(e) => {
               field.onChange(e);

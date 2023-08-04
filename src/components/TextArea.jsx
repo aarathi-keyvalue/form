@@ -10,6 +10,7 @@ const TextArea = (props) => {
         <label className="relative">
           <textarea
             placeholder={placeholder}
+            value={field.value}
             className={`p-[10px] border border-cloud rounded-md focus:outline-none w-full max-w-[270px] ${
               error
                 ? "focus-within:border-warningRed"
