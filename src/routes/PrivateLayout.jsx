@@ -11,11 +11,11 @@ const PrivateLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
 
   const navigate = useNavigate();
-  const { hash } = window.location;
+  const { pathname } = window.location;
 
   useEffect(() => {
-    setSelectedTab("/" + hash.split("/")[1]);
-  }, [hash]);
+    setSelectedTab("/" + pathname.split("/")[1]);
+  }, [pathname]);
 
   const handleTabClick = (path) => {
     setSelectedTab(path);

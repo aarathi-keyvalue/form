@@ -93,11 +93,9 @@ const Form = () => {
               <div className="flex flex-col gap-y-5 sm:gap-y-10">
                 <Input
                   name="name"
-                  type="text"
                   control={control}
                   placeholder="Name"
                   error={errors.name}
-                  required={true}
                 />
                 <Select
                   options={QUALIFICATIONS}
@@ -147,7 +145,6 @@ const Form = () => {
                 <Input
                   name="phoneNumber"
                   type="number"
-                  inputClassName=""
                   control={control}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}

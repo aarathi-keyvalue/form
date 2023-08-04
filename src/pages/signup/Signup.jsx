@@ -1,11 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { Button, Input } from "../../components";
+import { addUser } from "../../store/user";
+import { routes } from "../../routes/routes";
 import SignUpFormSchema from "./SignupFormValidation";
 
 const Signup = () => {
   const {
+    reset,
     control,
     handleSubmit,
     formState: { errors },
@@ -18,12 +23,22 @@ const Signup = () => {
     },
   });
 
-  const handleFormSubmit = (data) => console.log("data", data);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onLoginClick = () => {
+    navigate(`${routes.LOGIN}`);
+  };
+
+  const handleFormSubmit = (data) => {
+    dispatch(addUser({ username: data.username, password: data.password }));
+    reset();
+  };
 
   return (
     <div className="w-full h-full flex justify-center items-center">
       <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="h-fit flex flex-col gap-y-7 border p-10 pb-14 rounded-md shadow-md">
+        <div className="relative h-fit flex flex-col gap-y-7 border p-10 pb-14 rounded-md shadow-md">
           <Input
             name="username"
             placeholder="Username"
@@ -43,10 +58,19 @@ const Signup = () => {
             error={errors.confirmPassword}
           />
           <Button
-            label="Submit"
+            label="Sign Up"
             type="submit"
             buttonStyles="bg-primaryColor w-full text-white font-medium"
           />
+          <div className="absolute bottom-7 left-20 flex gap-x-2">
+            <span className="text-xs">Already have an account?</span>
+            <span
+              className="text-xs text-primaryColor cursor-pointer"
+              onClick={onLoginClick}
+            >
+              Login
+            </span>
+          </div>
         </div>
       </form>
     </div>

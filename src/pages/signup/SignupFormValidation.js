@@ -9,7 +9,6 @@ const SignUpFormSchema = yup.object().shape({
     .min(8, "Atleast 8 characters"),
   confirmPassword: yup
     .string()
-    .required('Confirm your password')
     .oneOf([yup.ref("password")], "Password must match"),
 });
 
