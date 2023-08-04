@@ -28,7 +28,7 @@ const Input = (props) => {
               error
                 ? "focus-within:border-warningRed"
                 : "focus-within:border-primaryColor"
-            } bg-white border-cloud p-[10px] border focus:outline-none rounded-md transition duration-200 ${inputClassName}`}
+            } border-cloud p-[10px] border focus:outline-none rounded-md transition duration-200 ${inputClassName}`}
           />
           {error && (
             <span className="absolute text-xs text-warningRed -bottom-[18px] left-2 -mt-1">
