@@ -65,6 +65,7 @@ const Login = () => {
           />
           <Input
             name="password"
+            type="password"
             placeholder="Password"
             control={control}
             error={errors.password}

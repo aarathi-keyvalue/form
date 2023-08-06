@@ -48,12 +48,14 @@ const Signup = () => {
           />
           <Input
             name="password"
+            type="password"
             placeholder="Password"
             control={control}
             error={errors.password}
           />
           <Input
             name="confirmPassword"
+            type="password"
             placeholder="Confirm Password"
             control={control}
             error={errors.confirmPassword}
