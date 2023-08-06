@@ -25,7 +25,9 @@ const RouteLayout = () => {
       <Routes>
         <Route
           path={routes.ALL}
-          element={isAuthenticated ? <PrivateLayout /> : <PublicLayout />}
+          element={
+            isAuthenticated === "true" ? <PrivateLayout /> : <PublicLayout />
+          }
         />
       </Routes>
       {showPopup ? (

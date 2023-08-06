@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Input } from "../../components";
 import { routes } from "../../routes/routes";
-import { authenticate } from "../../store/user";
+import { updateIsAuthenticated } from "../../store/user";
 import LoginFormSchema from "./LoginFormValidation";
 
 const Login = () => {
@@ -31,7 +31,7 @@ const Login = () => {
   const { users } = useSelector((state) => state.users);
 
   const onSignupClick = () => {
-    navigate(`${routes.SIGN_UP}`);
+    navigate(routes.SIGN_UP);
   };
 
   useEffect(() => {
@@ -47,8 +47,8 @@ const Login = () => {
           user.username === data.username && user.password === data.password
       )
     ) {
-      dispatch(authenticate());
-      localStorage.setItem("isAuthenticated", true);
+      dispatch(updateIsAuthenticated("true"));
+      localStorage.setItem("isAuthenticated", "true");
     } else setShowError(true);
     reset();
   };

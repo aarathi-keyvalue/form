@@ -10,12 +10,12 @@ export const usersSlice = createSlice({
     addUser: (state, { payload }) => {
       state.users.push(payload);
     },
-    authenticate: (state) => {
-      state.isAuthenticated = true;
+    updateIsAuthenticated: (state, { payload }) => {
+      state.isAuthenticated = payload;
     },
   },
 });
 
-export const { addUser, authenticate } = usersSlice.actions;
+export const { addUser, updateIsAuthenticated } = usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -27,11 +27,12 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onLoginClick = () => {
-    navigate(`${routes.LOGIN}`);
+    navigate(routes.LOGIN);
   };
 
   const handleFormSubmit = (data) => {
     dispatch(addUser({ username: data.username, password: data.password }));
+    navigate(routes.LOGIN);
     reset();
   };
 
