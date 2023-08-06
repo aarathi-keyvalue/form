@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { Button, Input } from "../../components";
@@ -26,11 +26,20 @@ const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const { users } = useSelector((state) => state.users);
+
   const onLoginClick = () => {
     navigate(routes.LOGIN);
   };
 
   const handleFormSubmit = (data) => {
+    localStorage.setItem(
+      "users",
+      JSON.stringify([
+        ...users,
+        { username: data.username, password: data.password },
+      ])
+    );
     dispatch(addUser({ username: data.username, password: data.password }));
     navigate(routes.LOGIN);
     reset();

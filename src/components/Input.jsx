@@ -1,5 +1,5 @@
 import { Controller } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { HideIcon, ShowIcon } from "../assets/icons";
 
