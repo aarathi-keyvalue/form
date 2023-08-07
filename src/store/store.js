@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { countriesApi } from "../services/api";
+import { countriesApi, dummyApi } from "../services/api";
 import formReducer from "./form";
 import countryReducer from "./country";
 import usersReducer from "./user";
@@ -11,7 +11,10 @@ export const store = configureStore({
     country: countryReducer,
     users: usersReducer,
     [countriesApi.reducerPath]: countriesApi.reducer,
+    [dummyApi.reducerPath]: dummyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(countriesApi.middleware),
+    getDefaultMiddleware()
+      .concat(countriesApi.middleware)
+      .concat(dummyApi.middleware),
 });
