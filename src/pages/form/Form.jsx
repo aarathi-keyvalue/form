@@ -79,8 +79,7 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
-    console.log("Submitted Data", data);
-    formSubmit({ data: data });
+    formSubmit({ data });
     setCountrySearchText("");
     setImage("");
     reset();

@@ -12,7 +12,7 @@ export const countriesApi = createApi({
 export const dummyApi = createApi({
   reducerPath: "formReducer",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://www.example.com",
+    baseUrl: "https://example.com",
     timeout: 10000,
   }),
   endpoints: () => ({}),
