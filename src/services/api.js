@@ -8,3 +8,12 @@ export const countriesApi = createApi({
   }),
   endpoints: () => ({}),
 });
+
+export const dummyApi = createApi({
+  reducerPath: "formReducer",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://www.example.com",
+    timeout: 10000,
+  }),
+  endpoints: () => ({}),
+});

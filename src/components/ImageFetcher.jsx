@@ -24,7 +24,11 @@ const ImageFetcher = ({
       preview: URL.createObjectURL(event.target.files[0]),
       data: event.target.files[0],
     });
-    setValue(name, event.target.files[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      setValue(name, reader.result);
+    };
   };
 
   return (

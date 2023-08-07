@@ -15,6 +15,7 @@ import {
   Select,
 } from "../../components";
 import { topBarConstants } from "../../constants/common";
+import { useFormSubmitMutation } from "../../services/form";
 import FormSchema from "./FormValidation";
 import FamilyDetailsForm from "./components/FamilyDetailsForm";
 import TopBar from "../../components/TopBar";
@@ -40,7 +41,7 @@ const Form = () => {
       phoneNumber: "",
       agreeTndC: false,
       declaration: false,
-      image: null,
+      image: "",
       people: [{ firstName: "", lastName: "", gender: "", age: "" }],
     },
   });
@@ -54,6 +55,7 @@ const Form = () => {
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
   const { data: countries } = useGetCountryNamesQuery();
+  const [formSubmit] = useFormSubmitMutation();
 
   useEffect(() => {
     const filteredCountries =
@@ -78,6 +80,7 @@ const Form = () => {
 
   const handleFormSubmit = (data) => {
     console.log("Submitted Data", data);
+    formSubmit({ data: data });
     setCountrySearchText("");
     setImage("");
     reset();
