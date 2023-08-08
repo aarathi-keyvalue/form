@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useGetCountryNamesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
@@ -16,6 +17,7 @@ import {
 } from "../../components";
 import { topBarConstants } from "../../constants/common";
 import { useFormSubmitMutation } from "../../services/form";
+import { updateFormData } from "../../store/form";
 import FormSchema from "./FormValidation";
 import FamilyDetailsForm from "./components/FamilyDetailsForm";
 import TopBar from "../../components/TopBar";
@@ -45,6 +47,7 @@ const Form = () => {
       people: [{ firstName: "", lastName: "", gender: "", age: "" }],
     },
   });
+  
   const { fields, append, remove } = useFieldArray({ name: "people", control });
 
   const [countrySearchText, setCountrySearchText] = useState("");
@@ -52,10 +55,14 @@ const Form = () => {
   const [image, setImage] = useState();
   const [isSubmitEnabled, setIsSubmitEnabled] = useState();
 
+  const dispatch = useDispatch();
+
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
   const { data: countries } = useGetCountryNamesQuery();
   const [formSubmit] = useFormSubmitMutation();
+
+  const { usersList } = useSelector((state) => state.form);
 
   useEffect(() => {
     const filteredCountries =
@@ -79,7 +86,12 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
+    dispatch(updateFormData(data));
     formSubmit({ data });
+    localStorage.setItem("listedUsers", JSON.stringify([
+      ...usersList,
+      data,
+    ]));
     setCountrySearchText("");
     setImage("");
     reset();
@@ -87,9 +99,9 @@ const Form = () => {
 
   return (
     <div className="w-full h-full">
-      <TopBar headerText={topBarConstants.PERSONAL_DETAILS} />
+      <TopBar headerText={topBarConstants.PERSONAL_FORM} />
       <div className="w-full h-[calc(100vh-93px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
-        <div className="w-full h-fit flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-md sm:h-fit sm:min-w-[700px]">
+        <div className="w-full min-h-full flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-sm sm:h-fit sm:min-w-[700px]">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className="flex gap-y-5 sm:gap-x-2 md:gap-x-5 lg:gap-x-10 items-center flex-col-reverse sm:flex-row">
               <div className="flex flex-col gap-y-5 sm:gap-y-10">

@@ -8,6 +8,8 @@ import Country from "../pages/country/Country";
 import CountryDetail from "../pages/country-detail/CountryDetail";
 import FloatingBtn from "../components/FloatingBtn";
 import AddPopup from "../components/AddPopup/AddPopup";
+import UsersListing from "../pages/users/UsersListing";
+import UserDetail from "../pages/user-detail/UserDetail";
 
 const RouteLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
@@ -52,6 +54,8 @@ const RouteLayout = () => {
       <Routes>
         <Route path={routes.COUNTRY_LIST} element={<Country />} />
         <Route path={routes.FORM} element={<Form />} />
+        <Route path={routes.USERS} element={<UsersListing />} />
+        <Route path={`${routes.USERS}/:userId`} element={<UserDetail />} />
         <Route
           path={`${routes.COUNTRY_LIST}/:country`}
           element={<CountryDetail />}
@@ -62,10 +66,7 @@ const RouteLayout = () => {
         />
       </Routes>
       {showPopup ? (
-        <AddPopup
-          isOpen={isOpen}
-          onClick={() => setIsOpen(false)}
-        />
+        <AddPopup isOpen={isOpen} onClick={() => setIsOpen(false)} />
       ) : (
         <FloatingBtn
           onClick={() => setIsOpen(true)}
