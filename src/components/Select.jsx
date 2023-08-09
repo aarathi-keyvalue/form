@@ -3,7 +3,7 @@ import { Controller } from "react-hook-form";
 const Select = ({
   name,
   control,
-  error='',
+  error = "",
   options,
   selectClassName = "w-[270px]",
   onChangeHandler = () => {},
@@ -12,6 +12,7 @@ const Select = ({
     <Controller
       name={name}
       control={control}
+      defaultValue=""
       render={({ field }) => (
         <div className="relative border border-cloud rounded-md">
           <select
