@@ -108,10 +108,10 @@ const Form = () => {
                 <Input
                   name="name"
                   type="text"
-                  control={control}
                   placeholder="Name"
+                  register={register}
                   error={errors.name}
-                  required={true}
+                  setValue={setValue}
                 />
                 <Select
                   options={QUALIFICATIONS}
@@ -137,7 +137,8 @@ const Form = () => {
                 <RadioButton
                   options={GENDER}
                   name="gender"
-                  control={control}
+                  register={register}
+                  setValue={setValue}
                   error={errors.gender}
                 />
                 <DropDown
@@ -162,9 +163,10 @@ const Form = () => {
                   name="phoneNumber"
                   type="number"
                   inputClassName=""
-                  control={control}
+                  register={register}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
+                  setValue={setValue}
                 />
               </div>
             </div>
@@ -173,7 +175,9 @@ const Form = () => {
                 control={control}
                 watch={watch}
                 error={errors.people}
+                register={register}
                 familyDetails={fields}
+                setValue={setValue}
                 setError={setError}
                 appendHandler={append}
                 removeHandler={remove}

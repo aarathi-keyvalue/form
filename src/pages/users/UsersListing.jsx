@@ -12,23 +12,18 @@ const UsersListing = () => {
   const { usersList } = useSelector((state) => state.form);
 
   const fontStyle = "font-light";
+  const cellStyle = "w-1/5";
 
   return (
     <div className="w-full h-full">
-      <TopBar
-        headerText={topBarConstants.USER_DETAILS}
-        showNavigateBack
-        handleBackClick={() => {
-          navigate(routes.FORM);
-        }}
-      />
+      <TopBar headerText={topBarConstants.USER_DETAILS} />
       <div className="w-full h-[calc(100vh-93px)] bg-harp p-4 overflow-y-auto sm:p-10">
         <div className="flex px-5 gap-x-5 mb-3 font-medium">
-          <div className="w-1/5">Name</div>
-          <div className="w-1/5">Qualification</div>
-          <div className="w-1/5">Gender</div>
-          <div className="w-1/5">Country</div>
-          <div className="w-1/5">Phone Number</div>
+          <div className={cellStyle}>Name</div>
+          <div className={cellStyle}>Qualification</div>
+          <div className={cellStyle}>Gender</div>
+          <div className={cellStyle}>Country</div>
+          <div className={cellStyle}>Phone Number</div>
         </div>
         <div className="w-full flex flex-col gap-y-5">
           {usersList.map((user) => (
@@ -37,7 +32,7 @@ const UsersListing = () => {
               className="flex items-center gap-x-5 bg-white px-5 py-4 rounded-md shadow-md cursor-pointer hover:scale-[99%]"
               onClick={() => navigate(`${routes.USERS}/${user.phoneNumber}`)}
             >
-              <div className="flex gap-x-3 items-center w-1/5">
+              <div className={`flex gap-x-3 items-center ${cellStyle}`}>
                 <div className="w-12 h-12 rounded-full bg-white">
                   <img
                     src={user.image}
@@ -47,14 +42,16 @@ const UsersListing = () => {
                 </div>
                 <div className={fontStyle}>{capitalise(user.name)}</div>
               </div>
-              <div className={`w-1/5 ${fontStyle}`}>
+              <div className={`${cellStyle} ${fontStyle}`}>
                 {QUALIFICATION_LABELS[user.degree]}
               </div>
-              <div className={`w-1/5 ${fontStyle}`}>
+              <div className={`${cellStyle} ${fontStyle}`}>
                 {GENDER_LABELS[user.gender]}
               </div>
-              <div className={`w-1/5 ${fontStyle}`}>{user.country}</div>
-              <div className={`w-1/5 ${fontStyle}`}>{user.phoneNumber}</div>
+              <div className={`${cellStyle} ${fontStyle}`}>{user.country}</div>
+              <div className={`${cellStyle} ${fontStyle}`}>
+                {user.phoneNumber}
+              </div>
             </div>
           ))}
         </div>

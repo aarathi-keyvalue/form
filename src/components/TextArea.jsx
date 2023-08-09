@@ -6,6 +6,7 @@ const TextArea = (props) => {
     <Controller
       name={name}
       control={control}
+      defaultValue=""
       render={({ field }) => (
         <label className="relative">
           <textarea
