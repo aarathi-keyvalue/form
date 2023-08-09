@@ -14,14 +14,10 @@ const Input = (props) => {
     inputClassName = "",
   } = props;
 
-  const [inputType, setInputType] = useState(type);
+  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordField = () => {
-    if (inputType === "password") {
-      setInputType("text");
-      return;
-    }
-    setInputType("password");
+    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -31,7 +27,7 @@ const Input = (props) => {
       render={({ field }) => (
         <label className="relative cursor-text sm:max-w-[270px]">
           <input
-            type={inputType}
+            type={showPassword ? "text" : type}
             value={field.value}
             placeholder=" "
             onChange={(e) => {
@@ -54,7 +50,7 @@ const Input = (props) => {
               className="absolute top-[18px] right-3 cursor-pointer"
               onClick={togglePasswordField}
             >
-              {inputType === "password" ? <ShowIcon /> : <HideIcon />}
+              {showPassword ? <HideIcon /> : <ShowIcon />}
             </div>
           )}
           <span
