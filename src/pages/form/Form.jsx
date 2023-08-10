@@ -15,6 +15,7 @@ import {
   Select,
 } from "../../components";
 import { topBarConstants } from "../../constants/common";
+import { useFormSubmitMutation } from "../../services/form";
 import FormSchema from "./FormValidation";
 import FamilyDetailsForm from "./components/FamilyDetailsForm";
 import TopBar from "../../components/TopBar";
@@ -40,10 +41,11 @@ const Form = () => {
       phoneNumber: "",
       agreeTndC: false,
       declaration: false,
-      image: null,
+      image: "",
       people: [{ firstName: "", lastName: "", gender: "", age: "" }],
     },
   });
+
   const { fields, append, remove } = useFieldArray({ name: "people", control });
 
   const [countrySearchText, setCountrySearchText] = useState("");
@@ -54,6 +56,7 @@ const Form = () => {
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
   const { data: countries } = useGetCountryNamesQuery();
+  const [formSubmit] = useFormSubmitMutation();
 
   useEffect(() => {
     const filteredCountries =
@@ -77,7 +80,7 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
-    console.log("Submitted Data", data);
+    formSubmit({ data });
     setCountrySearchText("");
     setImage("");
     reset();
@@ -94,10 +97,10 @@ const Form = () => {
                 <Input
                   name="name"
                   type="text"
-                  control={control}
                   placeholder="Name"
+                  register={register}
                   error={errors.name}
-                  required={true}
+                  setValue={setValue}
                 />
                 <Select
                   options={QUALIFICATIONS}
@@ -123,7 +126,8 @@ const Form = () => {
                 <RadioButton
                   options={GENDER}
                   name="gender"
-                  control={control}
+                  register={register}
+                  setValue={setValue}
                   error={errors.gender}
                 />
                 <DropDown
@@ -148,9 +152,10 @@ const Form = () => {
                   name="phoneNumber"
                   type="number"
                   inputClassName=""
-                  control={control}
+                  register={register}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
+                  setValue={setValue}
                 />
               </div>
             </div>
@@ -159,7 +164,9 @@ const Form = () => {
                 control={control}
                 watch={watch}
                 error={errors.people}
+                register={register}
                 familyDetails={fields}
+                setValue={setValue}
                 setError={setError}
                 appendHandler={append}
                 removeHandler={remove}

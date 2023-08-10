@@ -5,5 +5,15 @@ import ImageFetcher from "./ImageFetcher";
 import Input from "./Input";
 import RadioButton from "./RadioButton";
 import Select from "./Select";
+import TextArea from "./TextArea";
 
-export { Button, CheckBox, DropDown, ImageFetcher, Input, RadioButton, Select };
+export {
+  Button,
+  CheckBox,
+  DropDown,
+  ImageFetcher,
+  Input,
+  RadioButton,
+  Select,
+  TextArea,
+};
