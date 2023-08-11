@@ -7,6 +7,7 @@ import { ReactComponent as LeftArrow } from "./leftArrow.svg";
 import { ReactComponent as DeleteLightIcon } from "./deleteRedIcon.svg";
 import { ReactComponent as EditLightIcon } from "./blueEdit.svg";
 import { ReactComponent as CrossIcon } from "./crossIcon.svg";
+import { ReactComponent as TickIcon } from "./checkIconGreen.svg";
 
 export {
   SearchIcon,
@@ -18,4 +19,5 @@ export {
   DeleteLightIcon,
   EditLightIcon,
   CrossIcon,
+  TickIcon
 };

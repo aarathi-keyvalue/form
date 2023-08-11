@@ -5,7 +5,12 @@ import { topBarConstants } from "../../constants/common";
 import { routes } from "../../routes/routes";
 import { GENDER_LABELS, QUALIFICATION_LABELS } from "../../constants/form";
 import { capitalise } from "../../utils/generalUtils";
-import { CrossIcon, DeleteLightIcon, EditLightIcon } from "../../assets/icons";
+import {
+  CrossIcon,
+  DeleteLightIcon,
+  EditLightIcon,
+  TickIcon,
+} from "../../assets/icons";
 import { updateUser } from "../../store/form";
 import { NoDataFound } from "../../assets/images";
 import TopBar from "../../components/TopBar";
@@ -139,15 +144,17 @@ const UsersListing = () => {
                       <DeleteLightIcon width={18} height={18} />
                     </div>
                     <div
-                      className={`p-3 ${user.isActive ? "cursor-pointer" : ""}`}
+                      className="p-3 cursor-pointer"
                       onClick={(e) => {
-                        if (user.isActive) {
-                          e.stopPropagation();
-                          disableUser(user.createdAt);
-                        }
+                        e.stopPropagation();
+                        disableUser(user.createdAt);
                       }}
                     >
-                      <CrossIcon height={16} width={16} />
+                      {user.isActive ? (
+                        <TickIcon height={18} width={18} />
+                      ) : (
+                        <CrossIcon height={16} width={16} />
+                      )}
                     </div>
                   </div>
                 </div>
