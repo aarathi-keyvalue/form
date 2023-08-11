@@ -8,12 +8,15 @@ export const formSlice = createSlice({
       : [],
   },
   reducers: {
-    updateFormData: (state, { payload }) => {
+    addUser: (state, { payload }) => {
       state.usersList.push(payload);
+    },
+    updateUser: (state, { payload }) => {
+      state.usersList = payload;
     },
   },
 });
 
-export const { updateFormData } = formSlice.actions;
+export const { addUser, updateUser } = formSlice.actions;
 
 export default formSlice.reducer;

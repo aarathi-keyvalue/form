@@ -12,7 +12,7 @@ const UserDetail = () => {
   const { userId } = useParams();
   const { usersList } = useSelector((state) => state.form);
 
-  const user = usersList.find((user) => user.phoneNumber === userId);
+  const user = usersList.find((user) => user.createdAt === userId);
 
   return (
     <div className="w-full h-full">
@@ -51,8 +51,11 @@ const UserDetail = () => {
               Family Details
             </div>
             <ol>
-              {user.people?.map((person, index) => (
-                <div className="flex gap-x-2 items-start">
+              {user.people.map((person, index) => (
+                <div
+                  key={`${person.firstName}_${person.age}_${person.gender}`}
+                  className="flex gap-x-2 items-start"
+                >
                   <div>{`${index + 1})`}</div>
                   <li className="mb-4">
                     <div className="flex gap-x-5">

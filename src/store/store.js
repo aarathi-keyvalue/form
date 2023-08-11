@@ -12,7 +12,9 @@ export const store = configureStore({
     [dummyApi.reducerPath]: dummyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
       .concat(countriesApi.middleware)
       .concat(dummyApi.middleware),
 });
