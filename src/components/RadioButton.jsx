@@ -3,13 +3,14 @@ const RadioButton = (props) => {
     options,
     name,
     register,
-    setValue,
     onChangeHandler = () => {},
     error,
   } = props;
 
+  const { onChange } = register(name);
+
   const onChangeClick = (e) => {
-    setValue(name, e.target.value);
+    onChange(e);
     onChangeHandler(e);
   };
 

@@ -100,13 +100,13 @@ const Form = () => {
                   placeholder="Name"
                   register={register}
                   error={errors.name}
-                  setValue={setValue}
                 />
                 <Select
                   options={QUALIFICATIONS}
                   name="degree"
                   control={control}
                   error={errors.degree}
+                  register={register}
                 />
               </div>
               <div className="flex justify-center w-[270px]">
@@ -127,7 +127,6 @@ const Form = () => {
                   options={GENDER}
                   name="gender"
                   register={register}
-                  setValue={setValue}
                   error={errors.gender}
                 />
                 <DropDown
@@ -155,7 +154,6 @@ const Form = () => {
                   register={register}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
-                  setValue={setValue}
                 />
               </div>
             </div>
@@ -166,7 +164,6 @@ const Form = () => {
                 error={errors.people}
                 register={register}
                 familyDetails={fields}
-                setValue={setValue}
                 setError={setError}
                 appendHandler={append}
                 removeHandler={remove}
