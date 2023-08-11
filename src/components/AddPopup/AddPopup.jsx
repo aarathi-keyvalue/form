@@ -11,10 +11,9 @@ const AddPopup = (props) => {
   const { onClick, isOpen } = props;
 
   const {
-    control,
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(PopupFormSchema),
@@ -29,6 +28,7 @@ const AddPopup = (props) => {
 
   const handleFormSubmit = (data) => {
     console.log("submitted data:", data);
+    reset();
   };
 
   return (
@@ -52,14 +52,12 @@ const AddPopup = (props) => {
             placeholder="Name"
             register={register}
             error={errors?.["name"]}
-            setValue={setValue}
           />
           <Input
             name="email"
             placeholder="Email"
             register={register}
             error={errors?.["email"]}
-            setValue={setValue}
           />
           <Input
             type="number"
@@ -67,19 +65,17 @@ const AddPopup = (props) => {
             placeholder="Phone Number"
             register={register}
             error={errors?.["phone"]}
-            setValue={setValue}
           />
           <Input
             name="title"
             placeholder="Title"
             register={register}
             error={errors?.["title"]}
-            setValue={setValue}
           />
           <TextArea
             name="desc"
             placeholder="Description"
-            control={control}
+            register={register}
             error={errors?.["desc"]}
           />
           <Button

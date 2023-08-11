@@ -4,21 +4,22 @@ const Input = (props) => {
     placeholder,
     register,
     type = "text",
-    setValue,
     error = "",
     onChangeFn = () => {},
     inputClassName = "",
   } = props;
 
+  const { onChange } = register(name);
+
   const onChangeClick = (e) => {
+    onChange(e);
     onChangeFn(e);
-    setValue(name, e.target.value);
   };
 
   return (
     <label className="relative cursor-text sm:max-w-[270px]">
       <input
-      autoComplete="off"
+        autoComplete="off"
         type={type}
         placeholder=" "
         {...register(name)}

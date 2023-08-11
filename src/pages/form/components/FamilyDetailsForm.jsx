@@ -9,7 +9,6 @@ const FamilyDetailsForm = ({
   control,
   error,
   watch,
-  setValue,
   register,
   setError,
   familyDetails,
@@ -77,7 +76,6 @@ const FamilyDetailsForm = ({
               register={register}
               error={error && error[index]?.firstName}
               onChangeFn={clearErrorOnChange}
-              setValue={setValue}
             />
             <Input
               name={`people[${index}].lastName`}
@@ -85,7 +83,6 @@ const FamilyDetailsForm = ({
               register={register}
               error={error && error[index]?.lastName}
               onChangeFn={clearErrorOnChange}
-              setValue={setValue}
             />
             <div
               className={`flex w-full items-center sm:gap-x-5 md:gap-x-10 ${
@@ -95,6 +92,7 @@ const FamilyDetailsForm = ({
               <Select
                 name={`people[${index}].gender`}
                 control={control}
+                register={register}
                 error={error && error[index]?.gender}
                 options={GENDER_SELECT}
                 onChangeHandler={clearErrorOnChange}
@@ -108,7 +106,6 @@ const FamilyDetailsForm = ({
                 error={error && error[index]?.age}
                 inputClassName="w-28 sm:w-[100px]"
                 onChangeFn={clearErrorOnChange}
-                setValue={setValue}
               />
             </div>
 
