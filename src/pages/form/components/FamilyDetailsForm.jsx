@@ -9,6 +9,7 @@ const FamilyDetailsForm = ({
   control,
   error,
   watch,
+  register,
   setError,
   familyDetails,
   appendHandler,
@@ -47,14 +48,15 @@ const FamilyDetailsForm = ({
     appendHandler({});
   };
 
-  const onRemoveClick = (index) => {
-    removeHandler(index);
-  };
-
   const clearErrorOnChange = () => {
     if (error?.type === "fillBeforeAdd") {
       setError("people", "");
     }
+  };
+
+  const onRemoveClick = (index) => {
+    removeHandler(index);
+    clearErrorOnChange();
   };
 
   return (
@@ -71,14 +73,14 @@ const FamilyDetailsForm = ({
             <Input
               name={`people[${index}].firstName`}
               placeholder="First Name"
-              control={control}
+              register={register}
               error={error && error[index]?.firstName}
               onChangeFn={clearErrorOnChange}
             />
             <Input
               name={`people[${index}].lastName`}
               placeholder="Last Name"
-              control={control}
+              register={register}
               error={error && error[index]?.lastName}
               onChangeFn={clearErrorOnChange}
             />
@@ -90,6 +92,7 @@ const FamilyDetailsForm = ({
               <Select
                 name={`people[${index}].gender`}
                 control={control}
+                register={register}
                 error={error && error[index]?.gender}
                 options={GENDER_SELECT}
                 onChangeHandler={clearErrorOnChange}
@@ -99,7 +102,7 @@ const FamilyDetailsForm = ({
                 name={`people[${index}].age`}
                 placeholder="Age"
                 type="number"
-                control={control}
+                register={register}
                 error={error && error[index]?.age}
                 inputClassName="w-28 sm:w-[100px]"
                 onChangeFn={clearErrorOnChange}

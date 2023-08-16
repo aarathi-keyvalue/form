@@ -12,7 +12,7 @@ const AddPopup = (props) => {
 
   const {
     reset,
-    control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -50,32 +50,32 @@ const AddPopup = (props) => {
           <Input
             name="name"
             placeholder="Name"
-            control={control}
+            register={register}
             error={errors?.["name"]}
           />
           <Input
             name="email"
             placeholder="Email"
-            control={control}
+            register={register}
             error={errors?.["email"]}
           />
           <Input
             name="phone"
             type="number"
             placeholder="Phone Number"
-            control={control}
+            register={register}
             error={errors?.["phone"]}
           />
           <Input
             name="title"
             placeholder="Title"
-            control={control}
+            register={register}
             error={errors?.["title"]}
           />
           <TextArea
             name="desc"
             placeholder="Description"
-            control={control}
+            register={register}
             error={errors?.["desc"]}
           />
           <Button

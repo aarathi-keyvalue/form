@@ -45,6 +45,7 @@ const Form = () => {
       people: [{ firstName: "", lastName: "", gender: "", age: "" }],
     },
   });
+
   const { fields, append, remove } = useFieldArray({ name: "people", control });
 
   const [countrySearchText, setCountrySearchText] = useState("");
@@ -97,6 +98,7 @@ const Form = () => {
                   name="name"
                   control={control}
                   placeholder="Name"
+                  register={register}
                   error={errors.name}
                 />
                 <Select
@@ -104,6 +106,7 @@ const Form = () => {
                   name="degree"
                   control={control}
                   error={errors.degree}
+                  register={register}
                 />
               </div>
               <div className="flex justify-center w-[270px]">
@@ -123,7 +126,7 @@ const Form = () => {
                 <RadioButton
                   options={GENDER}
                   name="gender"
-                  control={control}
+                  register={register}
                   error={errors.gender}
                 />
                 <DropDown
@@ -147,7 +150,7 @@ const Form = () => {
                 <Input
                   name="phoneNumber"
                   type="number"
-                  control={control}
+                  register={register}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}
                 />
@@ -158,6 +161,7 @@ const Form = () => {
                 control={control}
                 watch={watch}
                 error={errors.people}
+                register={register}
                 familyDetails={fields}
                 setError={setError}
                 appendHandler={append}

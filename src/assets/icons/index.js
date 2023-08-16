@@ -5,6 +5,8 @@ import { ReactComponent as RightArrowIcon } from "./rightArrow.svg";
 import { ReactComponent as DownArrow } from "./downArrow.svg";
 import { ReactComponent as ShowIcon } from "./eyeIcon.svg";
 import { ReactComponent as HideIcon } from "./eyeCrossed.svg";
+import { ReactComponent as CloseIcon } from "./closeIconWhiteBg.svg";
+import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
 
 export {
   SearchIcon,
@@ -14,4 +16,6 @@ export {
   DownArrow,
   ShowIcon,
   HideIcon,
+  CloseIcon,
+  HamburgerIcon,
 };
