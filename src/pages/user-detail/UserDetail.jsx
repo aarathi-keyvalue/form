@@ -23,7 +23,7 @@ const UserDetail = () => {
       />
       <div className="w-full h-[calc(100vh-93px)] bg-harp p-4 sm:p-10">
         <div className="bg-white w-full min-h-full rounded-md shadow-sm p-12">
-          <div className="h-36 w-36 mb-10 border rounded-full">
+          <div className="h-24 w-24 sm:h-36 sm:w-36 mb-10 border rounded-full">
             <img
               src={user.image}
               className="object-contain w-full h-full rounded-full"
@@ -31,14 +31,14 @@ const UserDetail = () => {
             />
           </div>
           <div className="flex gap-x-5">
-            <div className="font-medium text-base">
+            <div className="font-medium text-sm sm:text-base">
               <div>Name:</div>
               <div>Qualification:</div>
               <div>Gender:</div>
               <div>Country:</div>
               <div>Phone Number:</div>
             </div>
-            <div className="bg-green font-light text-base">
+            <div className="bg-green font-light text-sm sm:text-base">
               <div>{capitalise(user.name)}</div>
               <div>{QUALIFICATION_LABELS[user.degree]}</div>
               <div>{GENDER_LABELS[user.gender]}</div>
@@ -47,7 +47,7 @@ const UserDetail = () => {
             </div>
           </div>
           <div>
-            <div className="text-davyGrey font-medium text-lg mt-10 mb-2">
+            <div className="text-davyGrey font-medium text-base sm:text-lg mt-10 mb-2">
               Family Details
             </div>
             <ol>
@@ -56,15 +56,15 @@ const UserDetail = () => {
                   key={`${person.firstName}_${person.age}_${person.gender}`}
                   className="flex gap-x-2 items-start"
                 >
-                  <div>{`${index + 1})`}</div>
+                  <div className="text-sm sm:text-base">{`${index + 1})`}</div>
                   <li className="mb-4">
                     <div className="flex gap-x-5">
-                      <div className="font-medium text-base">
+                      <div className="font-medium text-sm sm:text-base">
                         <div>Name:</div>
                         <div>Gender:</div>
                         <div>Age:</div>
                       </div>
-                      <div className="bg-green font-light text-base">
+                      <div className="font-light text-sm sm:text-base">
                         <div>
                           {capitalise(person.firstName) +
                             " " +

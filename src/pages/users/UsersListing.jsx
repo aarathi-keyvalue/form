@@ -14,6 +14,7 @@ import {
 import { updateUser } from "../../store/form";
 import { NoDataFound } from "../../assets/images";
 import TopBar from "../../components/TopBar";
+import CardView from "../user-detail/components/CardView";
 
 const UsersListing = () => {
   const navigate = useNavigate();
@@ -24,18 +25,25 @@ const UsersListing = () => {
   const fontStyle = "font-light";
   const cellStyle = "w-1/6";
 
-  const editUser = (userId) => {
-    const user = usersList.find((user) => user.createdAt === userId);
-    navigate(`${routes.FORM}/${user.createdAt}`);
+  const editUser = (e, userId, isActive) => {
+    if (isActive) {
+      e.stopPropagation();
+      const user = usersList.find((user) => user.createdAt === userId);
+      navigate(`${routes.FORM}/${user.createdAt}`);
+    }
   };
 
-  const deleteUser = (userId) => {
-    const users = usersList.filter((user) => user.createdAt !== userId);
-    localStorage.setItem("listedUsers", JSON.stringify(users));
-    dispatch(updateUser(users));
+  const deleteUser = (e, userId, isActive) => {
+    if (isActive) {
+      e.stopPropagation();
+      const users = usersList.filter((user) => user.createdAt !== userId);
+      localStorage.setItem("listedUsers", JSON.stringify(users));
+      dispatch(updateUser(users));
+    }
   };
 
-  const disableUser = (userId) => {
+  const disableUser = (e, userId) => {
+    e.stopPropagation();
     const userIndex = usersList.findIndex((user) => user.createdAt === userId);
     const user = usersList[userIndex];
     const updatedUserList = [...usersList];
@@ -51,8 +59,14 @@ const UsersListing = () => {
     <div className="w-full h-full">
       <TopBar headerText={topBarConstants.USER_DETAILS} />
       <div className="w-full h-[calc(100vh-93px)] bg-harp p-4 overflow-y-auto sm:p-10">
+        <CardView
+          cardItems={usersList}
+          onEditClick={editUser}
+          onDeleteClick={deleteUser}
+          onDisableClick={disableUser}
+        />
         {usersList && usersList.length > 0 ? (
-          <>
+          <div className="hidden sm:flex sm:flex-col">
             <div className="flex px-5 gap-x-5 mb-3 font-medium">
               <div className={cellStyle}>Name</div>
               <div className={cellStyle}>Qualification</div>
@@ -123,32 +137,23 @@ const UsersListing = () => {
                   <div className={`${cellStyle} flex items-center`}>
                     <div
                       className={`p-3 ${user.isActive ? "cursor-pointer" : ""}`}
-                      onClick={(e) => {
-                        if (user.isActive) {
-                          e.stopPropagation();
-                          editUser(user.createdAt);
-                        }
-                      }}
+                      onClick={(e) =>
+                        editUser(e, user.createdAt, user.isActive)
+                      }
                     >
                       <EditLightIcon width={20} height={20} />
                     </div>
                     <div
                       className={`p-3 ${user.isActive ? "cursor-pointer" : ""}`}
-                      onClick={(e) => {
-                        if (user.isActive) {
-                          e.stopPropagation();
-                          deleteUser(user.createdAt);
-                        }
-                      }}
+                      onClick={(e) =>
+                        deleteUser(e, user.createdAt, user.isActive)
+                      }
                     >
                       <DeleteLightIcon width={18} height={18} />
                     </div>
                     <div
                       className="p-3 cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        disableUser(user.createdAt);
-                      }}
+                      onClick={(e) => disableUser(e, user.createdAt)}
                     >
                       {user.isActive ? (
                         <TickIcon height={18} width={18} />
@@ -160,7 +165,7 @@ const UsersListing = () => {
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ) : (
           <div className="w-full bg-white min-h-full rounded-sm shadow-sm items-center justify-center flex flex-col">
             <img src={NoDataFound} alt="" width={500} height={500} />

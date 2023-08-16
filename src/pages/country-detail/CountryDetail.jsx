@@ -45,17 +45,17 @@ const CountryDetail = () => {
         handleBackClick={() => navigate(routes.COUNTRY_LIST)}
       />
       <div className="w-full h-[calc(100vh-93px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
-        <div className="w-full h-full p-4 bg-white rounded-md flex items-start gap-x-10 sm:p-12">
+        <div className="w-full h-fit min-h-full p-4 bg-white rounded-md flex flex-col items-start sm:gap-x-10 sm:p-12 sm:flex-row">
           {!isFetching && (
             <>
-              <div className="w-96 h-80 border rounded-md shadow-md">
+              <div className="sm:w-96 sm:h-80 border shadow-md">
                 <img
                   src={countryDetails?.[0].flags.png}
                   alt={countryDetails?.[0].name.common}
                   className="object-contain w-full h-full"
                 />
               </div>
-              <div className="flex flex-col gap-y-2 p-10">
+              <div className="flex flex-col gap-y-2 p-3 sm:p-10">
                 <div className="text-3xl font-medium mb-3">
                   {countryDetails?.[0].name.common}
                 </div>
