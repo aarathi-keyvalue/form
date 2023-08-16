@@ -80,7 +80,7 @@ const PrivateLayout = () => {
 
       {/* desktop view */}
       <div
-        className={`bg-white px-2 py-20 flex-col gap-y-3 border-r sm:h-screen w-1/5 sm:flex justify-between`}
+        className={`bg-white px-2 pt-20 flex-col gap-y-3 border-r sm:h-screen w-1/5 sm:flex justify-between`}
       >
         <div className="pt-20 flex flex-col gap-y-3">
           {navConstants.map((navItem) => (
