@@ -3,5 +3,15 @@ import { ReactComponent as DeleteIcon } from "./deleteIcon.svg";
 import { ReactComponent as PlusIcon } from "./plusIcon.svg";
 import { ReactComponent as RightArrowIcon } from "./rightArrow.svg";
 import { ReactComponent as DownArrow } from "./downArrow.svg";
+import { ReactComponent as CloseIcon } from "./closeIconWhiteBg.svg";
+import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
 
-export { SearchIcon, DeleteIcon, PlusIcon, RightArrowIcon, DownArrow };
+export {
+  SearchIcon,
+  DeleteIcon,
+  PlusIcon,
+  RightArrowIcon,
+  DownArrow,
+  CloseIcon,
+  HamburgerIcon,
+};
