@@ -50,11 +50,12 @@ const PrivateLayout = () => {
             </div>
           ))}
         </div>
-        <div className="mb-2 px-5 py-5 bg-hawksBlue/50 rounded-md flex items-center gap-x-5">
+        <div
+          className="mb-2 px-5 py-5 bg-hawksBlue/50 rounded-md flex items-center gap-x-5 cursor-pointer"
+          onClick={onLogout}
+        >
           <img src={Avatar} alt="profile" className="w-8 h-8 rounded-full" />
-          <div className="cursor-pointer" onClick={onLogout}>
-            Logout
-          </div>
+          <div>Logout</div>
         </div>
       </div>
       <Routes>

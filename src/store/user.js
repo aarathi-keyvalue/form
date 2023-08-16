@@ -3,12 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 export const usersSlice = createSlice({
   name: "users",
   initialState: {
-    users: localStorage.getItem("users")
-      ? JSON.parse(localStorage.getItem("users"))
-      : [],
-    isAuthenticated: localStorage.getItem("isAuthenticated"),
+    users: [],
+    isAuthenticated: false,
   },
   reducers: {
+    setUser: (state, { payload }) => {
+      state.users = payload;
+    },
     addUser: (state, { payload }) => {
       state.users.push(payload);
     },
@@ -18,6 +19,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addUser, updateIsAuthenticated } = usersSlice.actions;
+export const { setUser, addUser, updateIsAuthenticated } = usersSlice.actions;
 
 export default usersSlice.reducer;

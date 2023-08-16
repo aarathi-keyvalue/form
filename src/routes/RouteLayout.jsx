@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Route, Routes } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { routes } from "./routes";
+import { setUser, updateIsAuthenticated } from "../store/user";
 import FloatingBtn from "../components/FloatingBtn";
 import AddPopup from "../components/AddPopup/AddPopup";
 import PrivateLayout from "./PrivateLayout";
@@ -11,6 +13,21 @@ import PublicLayout from "./PublicLayout";
 const RouteLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(isOpen);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(
+      updateIsAuthenticated(localStorage.getItem("isAuthenticated") ?? false)
+    );
+    dispatch(
+      setUser(
+        localStorage.getItem("users")
+          ? JSON.parse(localStorage.getItem("users"))
+          : []
+      )
+    );
+  }, []);
 
   const { isAuthenticated } = useSelector((state) => state.users);
 
