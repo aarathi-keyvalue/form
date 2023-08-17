@@ -7,6 +7,8 @@ import { ReactComponent as ShowIcon } from "./eyeIcon.svg";
 import { ReactComponent as HideIcon } from "./eyeCrossed.svg";
 import { ReactComponent as CloseIcon } from "./closeIconWhiteBg.svg";
 import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
+import { ReactComponent as UserIcon } from "./user-solid.svg";
+import { ReactComponent as CountryIcon } from "./globe-solid.svg";
 
 export {
   SearchIcon,
@@ -18,4 +20,6 @@ export {
   HideIcon,
   CloseIcon,
   HamburgerIcon,
+  UserIcon,
+  CountryIcon,
 };
