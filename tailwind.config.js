@@ -12,6 +12,7 @@ module.exports = {
         warningRed: "#F55E5E",
         hawksBlue: "#D4DDFC",
         cloud: "#C4C4C4",
+        secondaryColor: "#5E7799",
       },
       animation: {
         "slide-to-top": "slide-top ease-in forwards 0.7s",
