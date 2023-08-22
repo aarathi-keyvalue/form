@@ -7,7 +7,7 @@ import { canvasPreview } from "../utils/canvasPreview";
 import Button from "./Button";
 
 const ImageCropper = (props) => {
-  const { imgSrc, setFinalImage, setShowModal } = props;
+  const { imgSrc, setShowModal, handleCropClick } = props;
 
   const ASPECT = 1;
   const previewCanvasRef = useRef(null);
@@ -24,11 +24,8 @@ const ImageCropper = (props) => {
       if (!blob) {
         throw new Error("Failed to create blob");
       }
-      const reader = new FileReader();
-      reader.addEventListener("load", () =>
-        setFinalImage(reader.result?.toString() || "")
-      );
-      reader.readAsDataURL(blob);
+      const file = new File([blob], "profile.png", { type: "image/png" });
+      handleCropClick(file);
     });
     setShowModal(false);
   };

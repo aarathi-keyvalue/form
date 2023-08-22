@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 
 import { Avatar, Camera } from "../assets/images";
@@ -23,44 +23,12 @@ const ImageFetcher = ({
 
   const [showModal, setShowModal] = useState(false);
   const [imgSrc, setImgSrc] = useState(null);
-  const [finalImage, setFinalImage] = useState("");
-
-  useEffect(() => {
-    if (finalImage) {
-      urltoFile(finalImage, "profile.png", "image/png").then(function (file) {
-        setImage({
-          preview: URL.createObjectURL(file),
-          data: file,
-        });
-        setValue(name, file);
-        if (isSubmitted) trigger(name);
-      });
-    }
-  }, [finalImage]);
 
   const handleModalClose = () => {
     setShowModal(false);
   };
 
   const handleFileUpload = () => inputRef.current?.click();
-
-  const urltoFile = (url, filename, mimeType) => {
-    if (url.startsWith("data:")) {
-      var arr = url.split(","),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[arr.length - 1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      var file = new File([u8arr], filename, { type: mime || mimeType });
-      return Promise.resolve(file);
-    }
-    return fetch(url)
-      .then((res) => res.arrayBuffer())
-      .then((buf) => new File([buf], filename, { type: mimeType }));
-  };
 
   const handleInput = (event) => {
     const reader = new FileReader();
@@ -71,11 +39,20 @@ const ImageFetcher = ({
     setShowModal(true);
   };
 
+  const handleCropClick = (file) => {
+    setImage({
+      preview: URL.createObjectURL(file),
+      data: file,
+    });
+    setValue(name, file);
+    if (isSubmitted) trigger(name);
+  };
+
   return (
     <Controller
       name={name}
       control={control}
-      render={({ field }) => (
+      render={() => (
         <div>
           <div className="flex flex-col items-center">
             <div
@@ -84,7 +61,7 @@ const ImageFetcher = ({
             >
               <img
                 className="object-contain rounded-full border-comet h-20 w-20 sm:h-[120px] sm:w-[120px]"
-                src={finalImage === "" ? Avatar : finalImage}
+                src={image.preview === "" ? Avatar : image.preview}
                 alt="profile"
                 height={120}
                 width={120}
@@ -133,9 +110,8 @@ const ImageFetcher = ({
                 />
                 <ImageCropper
                   imgSrc={imgSrc}
-                  finalImage={finalImage}
-                  setFinalImage={setFinalImage}
                   setShowModal={setShowModal}
+                  handleCropClick={handleCropClick}
                 />
               </div>
             </Modal>
