@@ -25,12 +25,13 @@ const Form = () => {
     register,
     reset,
     watch,
+    trigger,
     control,
     setError,
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
+    formState: { errors, isSubmitted },
   } = useForm({
     resolver: yupResolver(FormSchema),
     defaultValues: {
@@ -41,7 +42,7 @@ const Form = () => {
       phoneNumber: "",
       agreeTndC: false,
       declaration: false,
-      image: "",
+      image: null,
       people: [{ firstName: "", lastName: "", gender: "", age: "" }],
     },
   });
@@ -50,7 +51,7 @@ const Form = () => {
 
   const [countrySearchText, setCountrySearchText] = useState("");
   const [countryList, setCountryList] = useState([]);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState({ preview: "", data: "" });
   const [isSubmitEnabled, setIsSubmitEnabled] = useState();
 
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
@@ -82,7 +83,7 @@ const Form = () => {
   const handleFormSubmit = (data) => {
     formSubmit({ data });
     setCountrySearchText("");
-    setImage("");
+    setImage({ preview: "", data: "" });
     reset();
   };
 
@@ -113,6 +114,9 @@ const Form = () => {
                 <ImageFetcher
                   name="image"
                   register={register}
+                  watch={watch}
+                  trigger={trigger}
+                  isSubmitted={isSubmitted}
                   control={control}
                   setValue={setValue}
                   image={image}

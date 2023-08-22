@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useRef, useEffect } from "react";
-import ReactCrop, { centerCrop, makeAspectCrop } from "react-image-crop";
+import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
 import { canvasPreview } from "../utils/canvasPreview";
@@ -14,27 +14,6 @@ const ImageCropper = (props) => {
   const imgRef = useRef(null);
   const [crop, setCrop] = useState();
   const [completedCrop, setCompletedCrop] = useState();
-
-  const centerAspectCrop = (mediaWidth, mediaHeight, aspect) => {
-    return centerCrop(
-      makeAspectCrop(
-        {
-          unit: "%",
-          width: 90,
-        },
-        aspect,
-        mediaWidth,
-        mediaHeight
-      ),
-      mediaWidth,
-      mediaHeight
-    );
-  };
-
-  const onImageLoad = (e) => {
-    const { width, height } = e.currentTarget;
-    setCrop(centerAspectCrop(width, height, ASPECT));
-  };
 
   const onCropClick = () => {
     if (!previewCanvasRef.current) {
@@ -54,24 +33,24 @@ const ImageCropper = (props) => {
     setShowModal(false);
   };
 
-    const drawToCanvas = async () => {
-      if (
-        completedCrop?.width &&
-        completedCrop?.height &&
-        imgRef.current &&
-        previewCanvasRef.current
-      ) {
-        await canvasPreview(
-          imgRef.current,
-          previewCanvasRef.current,
-          completedCrop
-        );
-      }
-    };
+  const drawToCanvas = async () => {
+    if (
+      completedCrop?.width &&
+      completedCrop?.height &&
+      imgRef.current &&
+      previewCanvasRef.current
+    ) {
+      await canvasPreview(
+        imgRef.current,
+        previewCanvasRef.current,
+        completedCrop
+      );
+    }
+  };
 
-    useEffect(() => {
-      drawToCanvas();
-    }, [completedCrop]);
+  useEffect(() => {
+    drawToCanvas();
+  }, [completedCrop]);
 
   return (
     <div className="flex flex-col justify-center items-center w-full h-full gap-y-8">
@@ -89,7 +68,6 @@ const ImageCropper = (props) => {
             src={imgSrc}
             width={200}
             height={200}
-            onLoad={onImageLoad}
           />
         </ReactCrop>
       )}
@@ -99,8 +77,8 @@ const ImageCropper = (props) => {
             ref={previewCanvasRef}
             style={{
               objectFit: "contain",
-              width: completedCrop.width,
-              height: completedCrop.height,
+              width: 200,
+              height: 200,
             }}
           />
         </div>
