@@ -3,8 +3,12 @@ import { ReactComponent as DeleteIcon } from "./deleteIcon.svg";
 import { ReactComponent as PlusIcon } from "./plusIcon.svg";
 import { ReactComponent as RightArrowIcon } from "./rightArrow.svg";
 import { ReactComponent as DownArrow } from "./downArrow.svg";
+import { ReactComponent as ShowIcon } from "./eyeIcon.svg";
+import { ReactComponent as HideIcon } from "./eyeCrossed.svg";
 import { ReactComponent as CloseIcon } from "./closeIconWhiteBg.svg";
 import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
+import { ReactComponent as UserIcon } from "./user-solid.svg";
+import { ReactComponent as CountryIcon } from "./globe-solid.svg";
 
 export {
   SearchIcon,
@@ -12,6 +16,10 @@ export {
   PlusIcon,
   RightArrowIcon,
   DownArrow,
+  ShowIcon,
+  HideIcon,
   CloseIcon,
   HamburgerIcon,
+  UserIcon,
+  CountryIcon,
 };
