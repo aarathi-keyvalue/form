@@ -17,9 +17,9 @@ const RouteLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      updateIsAuthenticated(localStorage.getItem("isAuthenticated") ?? false)
-    );
+    const defaultAuth = localStorage.getItem("isAuthenticated");
+    if (!defaultAuth) localStorage.setItem("isAuthenticated", "false");
+    dispatch(updateIsAuthenticated(defaultAuth ? defaultAuth : "false"));
     dispatch(
       setUser(
         localStorage.getItem("users")
@@ -38,24 +38,32 @@ const RouteLayout = () => {
   }, [isOpen]);
 
   return (
-    <div className="relative w-full h-screen flex overflow-y-hidden">
-      <Routes>
-        <Route
-          path={routes.ALL}
-          element={
-            isAuthenticated === "true" ? <PrivateLayout /> : <PublicLayout />
-          }
-        />
-      </Routes>
-      {showPopup ? (
-        <AddPopup isOpen={isOpen} onClick={() => setIsOpen(false)} />
-      ) : (
-        <FloatingBtn
-          onClick={() => setIsOpen(true)}
-          className="absolute bottom-3 right-7 float-right"
-        />
+    <>
+      {isAuthenticated && (
+        <div className="relative w-full h-screen flex overflow-y-hidden">
+          <Routes>
+            <Route
+              path={routes.ALL}
+              element={
+                isAuthenticated === "true" ? (
+                  <PrivateLayout />
+                ) : (
+                  <PublicLayout />
+                )
+              }
+            />
+          </Routes>
+          {showPopup ? (
+            <AddPopup isOpen={isOpen} onClick={() => setIsOpen(false)} />
+          ) : (
+            <FloatingBtn
+              onClick={() => setIsOpen(true)}
+              className="absolute bottom-3 right-7 float-right"
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

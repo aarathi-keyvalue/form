@@ -12,6 +12,7 @@ const Signup = () => {
   const {
     reset,
     control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -53,6 +54,7 @@ const Signup = () => {
             name="username"
             placeholder="Username"
             control={control}
+            register={register}
             error={errors.username}
           />
           <Input
@@ -60,6 +62,7 @@ const Signup = () => {
             type="password"
             placeholder="Password"
             control={control}
+            register={register}
             error={errors.password}
           />
           <Input
@@ -67,6 +70,7 @@ const Signup = () => {
             type="password"
             placeholder="Confirm Password"
             control={control}
+            register={register}
             error={errors.confirmPassword}
           />
           <Button
