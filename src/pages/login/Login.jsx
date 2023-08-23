@@ -13,6 +13,7 @@ const Login = () => {
   const {
     reset,
     control,
+    register,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -62,6 +63,7 @@ const Login = () => {
             placeholder="Username"
             control={control}
             error={errors.username}
+            register={register}
           />
           <Input
             name="password"
@@ -69,6 +71,7 @@ const Login = () => {
             placeholder="Password"
             control={control}
             error={errors.password}
+            register={register}
           />
           <Button
             label="Login"
