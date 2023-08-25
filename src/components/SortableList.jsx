@@ -13,7 +13,7 @@ import {
 } from "../assets/icons";
 import { updateUser } from "../store/form";
 
-const SortableList = ({ listItems }) => {
+const SortableList = ({ listItems, editUser, deleteUser, disableUser }) => {
   const [items, setItems] = useState(listItems);
   const [draggedItem, setDraggedItem] = useState(null);
 
@@ -26,27 +26,6 @@ const SortableList = ({ listItems }) => {
 
   const fontStyle = "font-light";
   const cellStyle = "w-1/6";
-
-  const editUser = (userId) => {
-    const user = listItems.find((user) => user.createdAt === userId);
-    navigate(`${routes.FORM}/${user.createdAt}`);
-  };
-
-  const deleteUser = (userId) => {
-    const users = listItems.filter((user) => user.createdAt !== userId);
-    dispatch(updateUser(users));
-  };
-
-  const disableUser = (userId) => {
-    const userIndex = listItems.findIndex((user) => user.createdAt === userId);
-    const user = listItems[userIndex];
-    const updatedUserList = [...listItems];
-    updatedUserList.splice(userIndex, 1, {
-      ...user,
-      isActive: !user.isActive,
-    });
-    dispatch(updateUser(updatedUserList));
-  };
 
   const handleDragStart = (e, index) => {
     setDraggedItem(index);
@@ -128,32 +107,19 @@ const SortableList = ({ listItems }) => {
           <div className={`${cellStyle}  flex items-center`}>
             <div
               className={`p-3 ${user.isActive ? "cursor-pointer" : ""}`}
-              onClick={(e) => {
-                if (user.isActive) {
-                  e.stopPropagation();
-                  editUser(user.createdAt);
-                }
-              }}
+              onClick={(e) => editUser(e, user.createdAt, user.isActive)}
             >
               <EditLightIcon width={20} height={20} />
             </div>
             <div
               className={`p-3 ${user.isActive ? "cursor-pointer" : ""}`}
-              onClick={(e) => {
-                if (user.isActive) {
-                  e.stopPropagation();
-                  deleteUser(user.createdAt);
-                }
-              }}
+              onClick={(e) => deleteUser(e, user.createdAt, user.isActive)}
             >
               <DeleteLightIcon width={18} height={18} />
             </div>
             <div
               className="p-3 cursor-pointer"
-              onClick={(e) => {
-                e.stopPropagation();
-                disableUser(user.createdAt);
-              }}
+              onClick={(e) => disableUser(e, user.createdAt)}
             >
               {user.isActive ? (
                 <TickIcon height={18} width={18} />
