@@ -10,6 +10,8 @@ import { CloseIcon, HamburgerIcon } from "../assets/icons";
 import { updateNavCollapse, updateNavOpen } from "../store/leftNav";
 import { COLORS } from "../constants/colors";
 import Form from "../pages/form/Form";
+import UsersListing from "../pages/users/UsersListing";
+import UserDetail from "../pages/user-detail/UserDetail";
 import Country from "../pages/country/Country";
 import CountryDetail from "../pages/country-detail/CountryDetail";
 
@@ -60,17 +62,25 @@ const PrivateLayout = () => {
           <CloseIcon width={40} height={40} onClick={handleNavClick} />
         </div>
         <div className="pt-20 flex flex-col gap-y-3">
-          {navConstants.map((navItem) => (
+          {navConstants.map(({ path, label, icon: NavIcon }) => (
             <div
-              key={navItem.path}
-              className={`w-full rounded-md px-5 py-2 hover:bg-harp/60 cursor-pointer ${
-                selectedTab === navItem.path
+              key={path}
+              className={`w-full rounded-md px-5 py-2 hover:bg-harp/60 cursor-pointer flex items-center gap-x-4 ${
+                selectedTab === path
                   ? "text-primaryColor bg-hawksBlue/30"
                   : "text-black"
               }`}
-              onClick={() => handleTabClick(navItem.path)}
+              onClick={() => handleTabClick(path)}
             >
-              {navItem.label}
+              <NavIcon
+                width={20}
+                height={20}
+                fill={
+                  selectedTab === path ? COLORS.PRIMARY_COLOR : COLORS.DAVY_GREY
+                }
+                stroke={COLORS.SLATE_GREY}
+              />
+              {label}
             </div>
           ))}
         </div>
@@ -139,6 +149,9 @@ const PrivateLayout = () => {
         <Routes>
           <Route path={routes.COUNTRY_LIST} element={<Country />} />
           <Route path={routes.FORM} element={<Form />} />
+          <Route path={`${routes.FORM}/:userId`} element={<Form />} />
+          <Route path={routes.USERS} element={<UsersListing />} />
+          <Route path={`${routes.USERS}/:userId`} element={<UserDetail />} />
           <Route
             path={`${routes.COUNTRY_LIST}/:country`}
             element={<CountryDetail />}

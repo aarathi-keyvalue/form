@@ -10,6 +10,7 @@ const ImageFetcher = ({
   setValue,
   image = "",
   setImage = () => {},
+  watch,
   error,
 }) => {
   const { ref } = register(name);
@@ -21,7 +22,6 @@ const ImageFetcher = ({
 
   const handleInput = (event) => {
     setImage({
-      preview: URL.createObjectURL(event.target.files[0]),
       data: event.target.files[0],
     });
     const reader = new FileReader();
@@ -43,7 +43,7 @@ const ImageFetcher = ({
           >
             <img
               className="object-contain rounded-full border-comet h-20 w-20 sm:h-[120px] sm:w-[120px]"
-              src={image === "" ? Avatar : image.preview}
+              src={watch(name) === "" ? Avatar : watch(name)}
               alt="profile"
               height={120}
               width={120}

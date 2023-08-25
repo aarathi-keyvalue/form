@@ -66,6 +66,7 @@ const DropDown = (props) => {
     <Controller
       name={name}
       control={control}
+      defaultValue=""
       render={({ field }) => (
         <div
           className="relative cursor-text max-w-[270px]"

@@ -1,14 +1,17 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { useGetCountryByNameQuery } from "../../services/countries";
-import TopBar from "../../components/TopBar";
 import { topBarConstants } from "../../constants/common";
+import { routes } from "../../routes/routes";
+import TopBar from "../../components/TopBar";
 
 const CountryDetail = () => {
   const { country } = useParams();
   const { data: countryDetails, isFetching } = useGetCountryByNameQuery({
     name: country,
   });
+
+  const navigate = useNavigate();
 
   const fieldStyle = "flex gap-x-2";
   const attributeStyle = "font-medium text-base";
@@ -36,7 +39,11 @@ const CountryDetail = () => {
 
   return (
     <div className="w-full h-full">
-      <TopBar headerText={topBarConstants.COUNTRY_DETAILS} />
+      <TopBar
+        headerText={topBarConstants.COUNTRY_DETAILS}
+        showNavigateBack
+        handleBackClick={() => navigate(routes.COUNTRY_LIST)}
+      />
       <div className="w-full h-[calc(100vh-93px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
         <div className="w-full h-fit min-h-full p-4 bg-white rounded-md flex flex-col items-start sm:gap-x-10 sm:p-12 sm:flex-row">
           {!isFetching && (
