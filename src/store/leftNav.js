@@ -2,14 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const leftNavSlice = createSlice({
   name: "navData",
-  initialState: { isNavOpen: true },
+  initialState: { isNavOpen: false, isNavCollapse: false },
   reducers: {
     updateNavOpen: (state, { payload }) => {
       state.isNavOpen = payload;
     },
+    updateNavCollapse: (state, { payload }) => {
+      state.isNavCollapse = payload;
+    },
   },
 });
 
-export const { updateNavOpen } = leftNavSlice.actions;
+export const { updateNavOpen, updateNavCollapse } = leftNavSlice.actions;
 
 export default leftNavSlice.reducer;

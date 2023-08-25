@@ -1,17 +1,21 @@
+import { CountryIcon, FormIcon, UserIcon } from "../assets/icons";
 import { routes } from "../routes/routes";
 
 export const navConstants = [
   {
     label: "Personal Form",
     path: routes.FORM,
+    icon: FormIcon,
   },
   {
     label: "User Details",
     path: routes.USERS,
+    icon: UserIcon,
   },
   {
     label: "Country",
     path: routes.COUNTRY_LIST,
+    icon: CountryIcon,
   },
 ];
 

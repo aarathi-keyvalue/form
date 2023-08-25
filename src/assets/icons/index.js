@@ -8,8 +8,13 @@ import { ReactComponent as DeleteLightIcon } from "./deleteRedIcon.svg";
 import { ReactComponent as EditLightIcon } from "./blueEdit.svg";
 import { ReactComponent as CrossIcon } from "./crossIcon.svg";
 import { ReactComponent as TickIcon } from "./checkIconGreen.svg";
+import { ReactComponent as ShowIcon } from "./eyeIcon.svg";
+import { ReactComponent as HideIcon } from "./eyeCrossed.svg";
 import { ReactComponent as CloseIcon } from "./closeIconWhiteBg.svg";
 import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
+import { ReactComponent as UserIcon } from "./user-solid.svg";
+import { ReactComponent as CountryIcon } from "./globe-solid.svg";
+import { ReactComponent as FormIcon } from "./formIcon.svg";
 
 export {
   SearchIcon,
@@ -22,6 +27,11 @@ export {
   EditLightIcon,
   CrossIcon,
   TickIcon,
+  ShowIcon,
+  HideIcon,
   CloseIcon,
   HamburgerIcon,
+  UserIcon,
+  CountryIcon,
+  FormIcon,
 };

@@ -11,9 +11,9 @@ const AddPopup = (props) => {
   const { onClick, isOpen } = props;
 
   const {
+    reset,
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(PopupFormSchema),
@@ -60,8 +60,8 @@ const AddPopup = (props) => {
             error={errors?.["email"]}
           />
           <Input
-            type="number"
             name="phone"
+            type="number"
             placeholder="Phone Number"
             register={register}
             error={errors?.["phone"]}
