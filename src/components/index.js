@@ -9,6 +9,7 @@ import TextArea from "./TextArea";
 import Modal from "./Modal";
 import TopBar from "./TopBar";
 import ImageCropper from "./ImageCropper";
+import SortableList from "./SortableList";
 
 export {
   Button,
@@ -22,4 +23,5 @@ export {
   Modal,
   TopBar,
   ImageCropper,
+  SortableList,
 };

@@ -1,6 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useFieldArray, useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
 
 import { useGetCountryNamesQuery } from "../../services/countries";
 import { SearchIcon } from "../../assets/icons";
@@ -17,10 +20,57 @@ import {
 } from "../../components";
 import { topBarConstants } from "../../constants/common";
 import { useFormSubmitMutation } from "../../services/form";
+import { addUser, updateUser } from "../../store/form";
+import { routes } from "../../routes/routes";
 import FormSchema from "./FormValidation";
 import FamilyDetailsForm from "./components/FamilyDetailsForm";
 
 const Form = () => {
+  const { userId } = useParams();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { usersList } = useSelector((state) => state.form);
+
+  const [countrySearchText, setCountrySearchText] = useState("");
+  const [countryList, setCountryList] = useState([]);
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState();
+
+  let index = 0;
+  const defaultValues = {
+    name: "",
+    degree: "",
+    country: "",
+    gender: "",
+    phoneNumber: "",
+    agreeTndC: false,
+    declaration: false,
+    image: null,
+    people: [{ firstName: "", lastName: "", gender: "", age: "" }],
+  };
+
+  const getDefaultValue = () => {
+    if (!userId) return defaultValues;
+
+    index = usersList?.findIndex((user) => user.createdAt === userId);
+    const user = usersList[index];
+    const binaryString = atob(user.image.split(",")[1]); // Binary data string
+    const blob = new Blob([binaryString], { type: "image/png" }); // Create a BLOB object
+    const file = new File([blob], "profile.png", { type: "image/png" });
+    return {
+      name: user.name,
+      degree: user.degree,
+      country: user.country,
+      gender: user.gender,
+      phoneNumber: user.phoneNumber,
+      agreeTndC: user.agreeTndC,
+      declaration: user.declaration,
+      image: file,
+      people: user.people,
+    };
+  };
+
   const {
     register,
     reset,
@@ -34,26 +84,20 @@ const Form = () => {
     formState: { errors, isSubmitted },
   } = useForm({
     resolver: yupResolver(FormSchema),
-    defaultValues: {
-      name: "",
-      degree: "",
-      country: "",
-      gender: "",
-      phoneNumber: "",
-      agreeTndC: false,
-      declaration: false,
-      image: null,
-      people: [{ firstName: "", lastName: "", gender: "", age: "" }],
-    },
+    defaultValues: getDefaultValue(),
   });
 
+  const [image, setImage] = useState({
+    preview: "",
+    name: "",
+  });
+
+  useEffect(() => {
+    setImage({ preview: usersList[index].image, name: "" });
+  }, [index]);
+
+
   const { fields, append, remove } = useFieldArray({ name: "people", control });
-
-  const [countrySearchText, setCountrySearchText] = useState("");
-  const [countryList, setCountryList] = useState([]);
-  const [image, setImage] = useState({ preview: "", data: "" });
-  const [isSubmitEnabled, setIsSubmitEnabled] = useState();
-
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
 
   const { data: countries } = useGetCountryNamesQuery();
@@ -81,23 +125,62 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
-    formSubmit({ data });
+    console.log("data", data);
+    const reader = new FileReader();
+    let imageURL;
+    reader.addEventListener("load", () => {
+      imageURL = reader.result?.toString() || "";
+      if (!userId) {
+        const timeStamp = Date.now().toString();
+        const finalData = {
+          ...data,
+          image: imageURL,
+          createdAt: timeStamp,
+          isActive: true,
+        };
+        dispatch(addUser(finalData));
+        formSubmit({ data: finalData });
+        localStorage.setItem(
+          "listedUsers",
+          JSON.stringify([...usersList, finalData])
+        );
+      } else {
+        const userData = {
+          ...data,
+          image: imageURL,
+          createdAt: userId,
+          isActive: true,
+        };
+        const updatedList = [...usersList];
+        updatedList.splice(index, 1, userData);
+        dispatch(updateUser(updatedList));
+        formSubmit({ data: userData });
+        localStorage.setItem("listedUsers", JSON.stringify(updatedList));
+      }
+    });
+    reader.readAsDataURL(data.image);
     setCountrySearchText("");
-    setImage({ preview: "", data: "" });
-    reset();
+    index = -1;
+    setImage({ preview: "", name: "" });
+    reset(defaultValues);
+    navigate(routes.USERS);
   };
 
   return (
     <div className="w-full h-full">
-      <TopBar headerText={topBarConstants.PERSONAL_DETAILS} />
+      <TopBar
+        headerText={topBarConstants.PERSONAL_FORM}
+        showNavigateBack={userId}
+        handleBackClick={() => navigate(routes.USERS)}
+      />
       <div className="w-full h-[calc(100vh-93px)] flex justify-center p-4 bg-harp overflow-y-auto sm:p-10">
-        <div className="w-full h-fit flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-md sm:h-fit sm:min-w-[700px]">
+        <div className="w-full min-h-full flex flex-col p-7 bg-white rounded-sm overflow-x-auto sm:rounded-md sm:p-12 sm:shadow-sm sm:h-fit sm:min-w-[700px]">
           <form onSubmit={handleSubmit(handleFormSubmit)}>
             <div className="flex gap-y-5 sm:gap-x-2 md:gap-x-5 lg:gap-x-10 items-center flex-col-reverse sm:flex-row">
               <div className="flex flex-col gap-y-5 sm:gap-y-10">
                 <Input
                   name="name"
-                  type="text"
+                  control={control}
                   placeholder="Name"
                   register={register}
                   error={errors.name}
@@ -114,7 +197,6 @@ const Form = () => {
                 <ImageFetcher
                   name="image"
                   register={register}
-                  watch={watch}
                   trigger={trigger}
                   isSubmitted={isSubmitted}
                   control={control}
@@ -154,7 +236,6 @@ const Form = () => {
                 <Input
                   name="phoneNumber"
                   type="number"
-                  inputClassName=""
                   register={register}
                   placeholder="Phone Number"
                   error={errors.phoneNumber}

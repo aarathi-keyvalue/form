@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useRef, useState } from "react";
 import { Controller } from "react-hook-form";
 
@@ -42,7 +41,7 @@ const ImageFetcher = ({
   const handleCropClick = (file) => {
     setImage({
       preview: URL.createObjectURL(file),
-      data: file,
+      name: file.name,
     });
     setValue(name, file);
     if (isSubmitted) trigger(name);
@@ -94,7 +93,7 @@ const ImageFetcher = ({
                 </span>
               ) : (
                 image && (
-                  <span className="text-xs text-comet">{image.data.name}</span>
+                  <span className="text-xs text-comet">{image.name}</span>
                 )
               )}
             </div>
