@@ -93,9 +93,8 @@ const Form = () => {
   });
 
   useEffect(() => {
-    setImage({ preview: usersList[index].image, name: "" });
+    if (userId) setImage({ preview: usersList[index].image, name: "" });
   }, [index]);
-
 
   const { fields, append, remove } = useFieldArray({ name: "people", control });
   const watchCheckbox = watch(["agreeTndC", "declaration"]);
@@ -125,7 +124,6 @@ const Form = () => {
   };
 
   const handleFormSubmit = (data) => {
-    console.log("data", data);
     const reader = new FileReader();
     let imageURL;
     reader.addEventListener("load", () => {
@@ -203,6 +201,7 @@ const Form = () => {
                   setValue={setValue}
                   image={image}
                   setImage={setImage}
+                  watch={watch}
                   error={errors.image}
                 />
               </div>
