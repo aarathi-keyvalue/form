@@ -6,7 +6,9 @@ import Input from "./Input";
 import RadioButton from "./RadioButton";
 import Select from "./Select";
 import TextArea from "./TextArea";
+import Modal from "./Modal";
 import TopBar from "./TopBar";
+import ImageCropper from "./ImageCropper";
 import SortableList from "./SortableList";
 
 export {
@@ -18,6 +20,8 @@ export {
   RadioButton,
   Select,
   TextArea,
+  Modal,
   TopBar,
+  ImageCropper,
   SortableList,
 };
