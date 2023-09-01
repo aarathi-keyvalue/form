@@ -16,7 +16,7 @@ const FormSchema = yup.object().shape({
     .required("Upload your image")
     .test(
       "fileSize",
-      "Image size must be less than or equal to 20KB",
+      "Max. size 20KB",
       (value) => {
         if (!value) return true;
 

@@ -27,7 +27,7 @@ const Input = (props) => {
   };
 
   return (
-    <label className="relative cursor-text sm:max-w-[270px]">
+    <label className="relative cursor-text sm:max-w-[270px] h-fit">
       <input
         autoComplete="off"
         type={showPassword ? "text" : type}
@@ -38,7 +38,7 @@ const Input = (props) => {
           error
             ? "focus-within:border-warningRed"
             : "focus-within:border-primaryColor"
-        } border-cloud p-[10px] border focus:outline-none rounded-md transition duration-200 ${inputClassName}`}
+        } border-cloud p-[10px] border focus:outline-none rounded transition duration-200 h-[54px] ${inputClassName}`}
       />
       {error && (
         <span className="absolute text-xs text-warningRed -bottom-[18px] left-2 -mt-1">
@@ -54,7 +54,7 @@ const Input = (props) => {
         </div>
       )}
       <span
-        className={`bg-white transition duration-200 absolute top-3 left-2 px-1 text-sm sm:text-[15px] text-comet peer-placeholder-shown:text-comet ${
+        className={`bg-white transition duration-200 absolute top-4 left-2 px-1 sm:text-sm text-[15px] text-comet peer-placeholder-shown:text-comet ${
           error ? "peer-focus:text-warningRed" : "peer-focus:text-primaryColor"
         } input-custom-label`}
       >

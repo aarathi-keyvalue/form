@@ -36,7 +36,7 @@ const TopBar = (props) => {
             onClick={handleBackClick}
           />
         )}
-        {headerText}
+        <div className="sm:px-1">{headerText}</div>
       </div>
       {isButtonRequired && (
         <div className="w-fit flex justify-end">
