@@ -8,6 +8,7 @@ const AutoComplete = (props) => {
     <Controller
       name={name}
       control={control}
+      defaultValue=""
       render={({ field }) => (
         <div className={`relative ${error ? "mb-2" : ""}`}>
           <Autocomplete

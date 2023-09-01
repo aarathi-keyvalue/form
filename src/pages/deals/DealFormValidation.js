@@ -51,7 +51,7 @@ const DealFormSchema = yup.object().shape({
       description: yup.string(),
       doc: yup
         .mixed()
-        .required("Upload your image")
+        .required("Upload doc image")
         .test("fileSize", "Max. size 3MB", (value) => {
           if (!value) return true;
 
@@ -60,18 +60,24 @@ const DealFormSchema = yup.object().shape({
         }),
     })
   ),
-  bgImage: yup.mixed().test("fileSize", "Max. size 3MB", (value) => {
-    if (!value) return true;
+  bgImage: yup
+    .mixed()
+    .required("Upload Background Image")
+    .test("fileSize", "Max. size 3MB", (value) => {
+      if (!value) return true;
 
-    const fileSizeInBytes = value.size || 0;
-    return fileSizeInBytes <= MAX_FILE_SIZE;
-  }),
-  coverImage: yup.mixed().test("fileSize", "Max. size 3MB", (value) => {
-    if (!value) return true;
+      const fileSizeInBytes = value.size || 0;
+      return fileSizeInBytes <= MAX_FILE_SIZE;
+    }),
+  coverImage: yup
+    .mixed()
+    .required("Upload Cover Image")
+    .test("fileSize", "Max. size 3MB", (value) => {
+      if (!value) return true;
 
-    const fileSizeInBytes = value.size || 0;
-    return fileSizeInBytes <= MAX_FILE_SIZE;
-  }),
+      const fileSizeInBytes = value.size || 0;
+      return fileSizeInBytes <= MAX_FILE_SIZE;
+    }),
 });
 
 export default DealFormSchema;

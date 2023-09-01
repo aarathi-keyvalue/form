@@ -111,6 +111,7 @@ const ImageFetcher = ({
                   imgSrc={imgSrc}
                   setShowModal={setShowModal}
                   handleCropClick={handleCropClick}
+                  aspect={1}
                 />
               </div>
             </Modal>

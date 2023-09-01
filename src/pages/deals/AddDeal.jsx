@@ -20,6 +20,7 @@ const AddDeal = () => {
     register,
     control,
     setValue,
+    watch,
     trigger,
     reset,
     handleSubmit,
@@ -27,8 +28,8 @@ const AddDeal = () => {
   } = useForm({
     resolver: yupResolver(DealFormSchema),
     defaultValues: {
-      //   dealType: "Type 1",
-      //   syndicateName: "",
+      dealType: "",
+      syndicateName: "",
       roundSize: "",
       roundName: "",
       minInvest: "",
@@ -37,7 +38,7 @@ const AddDeal = () => {
       dealRoute: "",
       startDate: "",
       endDate: "",
-      //   avgAmtInsight1: "",
+      avgAmtInsight1: "",
       avgAmtInsight2: "",
       email: [{ email: "" }],
       highlights: [{ description: "" }],
@@ -149,6 +150,7 @@ const AddDeal = () => {
                 />
                 <Input
                   name="avgAmtInsight2"
+                  type="number"
                   placeholder="Average amount insight"
                   register={register}
                   error={errors.avgAmtInsight2}
@@ -236,7 +238,9 @@ const AddDeal = () => {
                     name={`document[${index}].doc`}
                     text="Upload Document"
                     setValue={setValue}
+                    error={errors.document && errors.document[index].doc}
                     trigger={trigger}
+                    watch={watch}
                     isSubmitted={isSubmitted}
                   />
                 </div>
@@ -257,6 +261,8 @@ const AddDeal = () => {
                 text="Background Image/GIF"
                 setValue={setValue}
                 trigger={trigger}
+                error={errors.bgImage}
+                watch={watch}
                 isSubmitted={isSubmitted}
               />
               <FileUploader
@@ -264,6 +270,8 @@ const AddDeal = () => {
                 text="Cover Image"
                 setValue={setValue}
                 trigger={trigger}
+                watch={watch}
+                error={errors.coverImage}
                 isSubmitted={isSubmitted}
               />
             </div>
