@@ -18,11 +18,13 @@ const DealFormSchema = yup.object().shape({
   preMoneyValuation: yup.string().required("Pre-money Valuation is required"),
   dealInstrument: yup.string().required("Deal Instrument is required"),
   dealRoute: yup.string().required("Deal Route is required"),
-  startDate: "",
-  endDate: "",
+  startDate: yup.date().required("Start Date is required"),
+  endDate: yup
+    .date()
+    .required("End Date is required")
+    .min(yup.ref("startDate"), "End Date can't be before Start Date"),
   avgAmtInsight1: yup
     .string()
-    .test("minValue", "AAI cannot be less than zero", (value) => value >= 0)
     .required("AAI is required"),
   avgAmtInsight2: yup
     .string()

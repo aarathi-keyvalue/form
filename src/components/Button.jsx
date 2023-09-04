@@ -11,7 +11,7 @@ const Button = ({
     <button
       type={type}
       disabled={disable}
-      className={`rounded-sm py-2 px-4 w-fit  ${
+      className={`rounded-sm py-2 px-4 w-fit text-sm sm:text-base  ${
         disable ? "text-white bg-primaryColor/50" : buttonStyles
       }`}
       onClick={onClick}

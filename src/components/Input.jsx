@@ -27,7 +27,7 @@ const Input = (props) => {
   };
 
   return (
-    <label className="relative cursor-text sm:max-w-[270px] h-fit">
+    <label className="relative cursor-text h-fit">
       <input
         autoComplete="off"
         type={showPassword ? "text" : type}

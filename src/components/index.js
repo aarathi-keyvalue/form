@@ -12,6 +12,7 @@ import ImageCropper from "./ImageCropper";
 import SortableList from "./SortableList";
 import FileUploader from "./FileUploader";
 import AutoComplete from "./AutoComplete";
+import CustomDatePicker from "./DatePicker";
 
 export {
   Button,
@@ -28,4 +29,5 @@ export {
   SortableList,
   FileUploader,
   AutoComplete,
+  CustomDatePicker,
 };

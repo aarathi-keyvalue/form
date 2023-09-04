@@ -1,5 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 import {
   AutoComplete,
@@ -14,6 +15,7 @@ import { DeleteBlackIcon } from "../../assets/icons";
 import { COLORS } from "../../constants/colors";
 import AddMore from "./components/AddMore";
 import DealFormSchema from "./DealFormValidation";
+import CustomDatePicker from "../../components/DatePicker";
 
 const AddDeal = () => {
   const {
@@ -28,17 +30,17 @@ const AddDeal = () => {
   } = useForm({
     resolver: yupResolver(DealFormSchema),
     defaultValues: {
-      dealType: "",
-      syndicateName: "",
+      dealType: null,
+      syndicateName: null,
       roundSize: "",
       roundName: "",
       minInvest: "",
       preMoneyValuation: "",
       dealInstrument: "",
       dealRoute: "",
-      startDate: "",
-      endDate: "",
-      avgAmtInsight1: "",
+      startDate: null,
+      endDate: null,
+      avgAmtInsight1: null,
       avgAmtInsight2: "",
       email: [{ email: "" }],
       highlights: [{ description: "" }],
@@ -47,7 +49,6 @@ const AddDeal = () => {
       coverImage: null,
     },
   });
-  console.log("errror", errors);
   const { fields, append } = useFieldArray({ name: "email", control });
   const { fields: docFields, append: addDoc } = useFieldArray({
     name: "document",
@@ -62,27 +63,40 @@ const AddDeal = () => {
     control,
   });
 
+  const [dealType, setDealType] = useState(null);
+  const [synName, setSynName] = useState(null);
+  const [aai, setAai] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
   const onSubmit = (data) => {
     console.log("deals data", data);
     reset();
+    setDealType(null);
+    setSynName(null);
+    setAai(null);
+    setStartDate(null);
+    setEndDate(null);
   };
 
   return (
     <div className="w-full h-full">
       <TopBar headerText="" />
-      <div className="w-full h-[calc(100vh-93px)] p-4 overflow-y-auto sm:p-8 flex flex-col">
+      <div className="w-full h-[calc(100vh-93px)] p-4 overflow-y-auto sm:p-10 flex flex-col">
         <div className="text-3xl">Create Deal</div>
         <form className="pt-14" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex gap-x-9">
+          <div className="flex flex-col sm:flex-row gap-x-9">
             <div className="flex flex-col">
               <div className="font-semibold text-lg">Deal Details</div>
-              <div className="grid grid-cols-2 gap-x-7 gap-y-7 pt-4">
+              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-7 pt-4">
                 <AutoComplete
                   name="dealType"
                   control={control}
                   options={DEAL_TYPE}
                   label="Deal Type"
                   error={errors.dealType}
+                  selectedValue={dealType}
+                  setSelectedValue={setDealType}
                 />
                 <AutoComplete
                   name="syndicateName"
@@ -90,6 +104,8 @@ const AddDeal = () => {
                   options={DEAL_TYPE}
                   label="Syndicate Name"
                   error={errors.syndicateName}
+                  selectedValue={synName}
+                  setSelectedValue={setSynName}
                 />
                 <Input
                   name="roundSize"
@@ -129,17 +145,21 @@ const AddDeal = () => {
                   register={register}
                   error={errors.dealRoute}
                 />
-                <Input
+                <CustomDatePicker
                   name="startDate"
-                  placeholder="Start Date"
-                  register={register}
+                  label="Start Date"
+                  control={control}
                   error={errors.startDate}
+                  selectedValue={startDate}
+                  setSelectedValue={setStartDate}
                 />
-                <Input
+                <CustomDatePicker
                   name="endDate"
-                  placeholder="End Date"
-                  register={register}
+                  label="End Date"
+                  control={control}
                   error={errors.endDate}
+                  selectedValue={endDate}
+                  setSelectedValue={setEndDate}
                 />
                 <AutoComplete
                   name="avgAmtInsight1"
@@ -147,6 +167,8 @@ const AddDeal = () => {
                   options={DEAL_TYPE}
                   label="AAI"
                   error={errors.avgAmtInsight1}
+                  selectedValue={aai}
+                  setSelectedValue={setAai}
                 />
                 <Input
                   name="avgAmtInsight2"
@@ -157,7 +179,7 @@ const AddDeal = () => {
                 />
               </div>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col pt-10 sm:pt-0">
               <div className="font-semibold text-lg pb-4">
                 Emails for Deal Managers
               </div>
@@ -182,11 +204,11 @@ const AddDeal = () => {
             <div className="font-semibold text-lg pt-10 pb-4">
               Deal Highlights
             </div>
-            <div className="grid grid-cols-2 gap-7 w-[569px] pb-5 items-end">
+            <div className="flex flex-col sm:grid sm:grid-cols-2 gap-x-7 gap-y-6 w-[569px] pb-5 sm:items-end">
               {highlights.map((highlight, index) => (
                 <div
-                  key={highlight}
-                  className="flex flex-col items-end gap-y-2"
+                  key={`${highlight}_${index}`}
+                  className="w-fit flex flex-col gap-y-2 items-end"
                 >
                   {index !== 0 && (
                     <DeleteBlackIcon
@@ -219,7 +241,10 @@ const AddDeal = () => {
             </div>
             <div className="flex flex-col gap-y-5 pb-5">
               {docFields.map((document, index) => (
-                <div className="flex gap-x-7" key={document.name}>
+                <div
+                  className="flex gap-x-7 gap-y-5 flex-col sm:flex-row"
+                  key={document.name}
+                >
                   <Input
                     name={`document[${index}].name`}
                     placeholder="Document Name"
@@ -255,7 +280,7 @@ const AddDeal = () => {
             <div className="font-semibold text-lg pt-10 pb-4">
               Deal Visual Assets
             </div>
-            <div className="flex gap-x-7">
+            <div className="flex gap-x-7 gap-y-5 flex-col sm:flex-row">
               <FileUploader
                 name="bgImage"
                 text="Background Image/GIF"
@@ -276,7 +301,7 @@ const AddDeal = () => {
               />
             </div>
           </div>
-          <div className="flex gap-x-8 px-24 mt-10 justify-end">
+          <div className="flex gap-x-8 sm:px-24 my-12 justify-end">
             <Button
               label="SAVE AS DRAFT"
               type="submit"
@@ -284,7 +309,6 @@ const AddDeal = () => {
             />
             <Button
               label="NEXT"
-              //   type="submit"
               buttonStyles="bg-primaryColor text-white py-2 font-medium"
             />
           </div>
