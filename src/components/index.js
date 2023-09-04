@@ -13,6 +13,7 @@ import SortableList from "./SortableList";
 import FileUploader from "./FileUploader";
 import AutoComplete from "./AutoComplete";
 import CustomDatePicker from "./DatePicker";
+import Stepper from "./Stepper";
 
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   FileUploader,
   AutoComplete,
   CustomDatePicker,
+  Stepper,
 };

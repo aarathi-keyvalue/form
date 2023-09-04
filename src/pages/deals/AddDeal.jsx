@@ -83,8 +83,8 @@ const AddDeal = () => {
     <div className="w-full h-full">
       <TopBar headerText="" />
       <div className="w-full h-[calc(100vh-93px)] p-4 overflow-y-auto sm:p-10 flex flex-col">
-        <div className="text-3xl">Create Deal</div>
-        <form className="pt-14" onSubmit={handleSubmit(onSubmit)}>
+        <div className="text-lg sm:text-3xl pb-14">Create Deal</div>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col sm:flex-row gap-x-9">
             <div className="flex flex-col">
               <div className="font-semibold text-lg">Deal Details</div>

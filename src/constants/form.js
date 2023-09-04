@@ -20,3 +20,9 @@ export const GENDER_LABELS = {
 };
 
 export const GENDER_SELECT = { Gender: "", ...GENDER };
+
+export const STEPPER_STATES = [
+  { id: 1, label: "Personal Details" },
+  { id: 2, label: "Create Deal" },
+  { id: 3, label: "User Listing" }
+];
