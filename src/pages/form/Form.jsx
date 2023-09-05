@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, Routes, Route } from "react-router";
 
 import { STEPPER_STATES } from "../../constants/form";
 import { Stepper, TopBar } from "../../components";
@@ -26,10 +26,13 @@ const Form = () => {
           stepperState={STEPPER_STATES}
           currentState={currentStepperState}
         />
-        {currentStepperState === 1 && (
-          <PersonalForm setStepperState={setCurrentStepperState} />
-        )}
-        {currentStepperState === 2 && <DealsForm />}
+        <Routes>
+          <Route
+            path="/"
+            element={<PersonalForm setStepperState={setCurrentStepperState} />}
+          />
+          <Route path="/deals" element={<DealsForm />} />
+        </Routes>
       </div>
     </div>
   );

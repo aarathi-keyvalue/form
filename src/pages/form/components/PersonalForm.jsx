@@ -24,6 +24,7 @@ import FormSchema from "../FormValidation";
 
 const PersonalForm = (props) => {
   const { setStepperState } = props;
+
   const { userId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -52,8 +53,8 @@ const PersonalForm = (props) => {
 
     index = usersList?.findIndex((user) => user.createdAt === userId);
     const user = usersList[index];
-    const binaryString = atob(user.image.split(",")[1]); // Binary data string
-    const blob = new Blob([binaryString], { type: "image/png" }); // Create a BLOB object
+    const binaryString = atob(user.image.split(",")[1]);
+    const blob = new Blob([binaryString], { type: "image/png" });
     const file = new File([blob], "profile.png", { type: "image/png" });
     return {
       name: user.name,
@@ -122,6 +123,7 @@ const PersonalForm = (props) => {
 
   const onNextClick = () => {
     setStepperState((prev) => ++prev);
+    navigate(`${routes.FORM}/deals`);
   };
 
   const handleFormSubmit = (data) => {

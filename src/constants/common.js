@@ -8,11 +8,6 @@ export const navConstants = [
     icon: FormIcon,
   },
   {
-    label: "Deals",
-    path: routes.DEALS,
-    icon: FormIcon,
-  },
-  {
     label: "User Details",
     path: routes.USERS,
     icon: UserIcon,

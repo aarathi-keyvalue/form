@@ -149,9 +149,8 @@ const PrivateLayout = () => {
       >
         <Routes>
           <Route path={routes.COUNTRY_LIST} element={<Country />} />
-          <Route path={routes.FORM} element={<Form />} />
-          <Route path={`${routes.FORM}/:userId`} element={<Form />} />
-          <Route path={routes.DEALS} element={<AddDeal />} />
+          <Route path={`${routes.FORM}/edit/:userId`} element={<Form />} />
+          <Route path={`${routes.FORM}/*`} element={<Form />} />
           <Route path={routes.USERS} element={<UsersListing />} />
           <Route path={`${routes.USERS}/:userId`} element={<UserDetail />} />
           <Route
