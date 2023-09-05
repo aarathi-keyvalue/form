@@ -7,9 +7,8 @@ import { canvasPreview } from "../utils/canvasPreview";
 import Button from "./Button";
 
 const ImageCropper = (props) => {
-  const { imgSrc, setShowModal, handleCropClick } = props;
+  const { imgSrc, aspect, setShowModal, handleCropClick } = props;
 
-  const ASPECT = 1;
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const [crop, setCrop] = useState();
@@ -56,7 +55,7 @@ const ImageCropper = (props) => {
           crop={crop}
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
-          aspect={ASPECT}
+          aspect={aspect}
           ruleOfThirds
         >
           <img

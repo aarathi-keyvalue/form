@@ -14,6 +14,7 @@ import UsersListing from "../pages/users/UsersListing";
 import UserDetail from "../pages/user-detail/UserDetail";
 import Country from "../pages/country/Country";
 import CountryDetail from "../pages/country-detail/CountryDetail";
+import AddDeal from "../pages/deals/AddDeal";
 
 const PrivateLayout = () => {
   const [selectedTab, setSelectedTab] = useState();
@@ -148,8 +149,8 @@ const PrivateLayout = () => {
       >
         <Routes>
           <Route path={routes.COUNTRY_LIST} element={<Country />} />
-          <Route path={routes.FORM} element={<Form />} />
-          <Route path={`${routes.FORM}/:userId`} element={<Form />} />
+          <Route path={`${routes.FORM}/edit/:userId`} element={<Form />} />
+          <Route path={`${routes.FORM}/*`} element={<Form />} />
           <Route path={routes.USERS} element={<UsersListing />} />
           <Route path={`${routes.USERS}/:userId`} element={<UserDetail />} />
           <Route

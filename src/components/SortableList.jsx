@@ -45,7 +45,6 @@ const SortableList = ({ listItems, editUser, deleteUser, disableUser }) => {
   return (
     <ul className="mt-5 w-full flex flex-col gap-y-5">
       {items.map((user, index) => {
-        console.log("file in list", user.image);
         return (
           <div
             key={user.createdAt}

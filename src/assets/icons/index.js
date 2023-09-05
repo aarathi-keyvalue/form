@@ -15,6 +15,9 @@ import { ReactComponent as HamburgerIcon } from "./hamburger.svg";
 import { ReactComponent as UserIcon } from "./user-solid.svg";
 import { ReactComponent as CountryIcon } from "./globe-solid.svg";
 import { ReactComponent as FormIcon } from "./formIcon.svg";
+import { ReactComponent as UploadIcon } from "./uploadIcon.svg";
+import { ReactComponent as PlusSolidIcon } from "./plus-solid.svg";
+import { ReactComponent as DeleteBlackIcon } from "./delete-regular.svg";
 
 export {
   SearchIcon,
@@ -34,4 +37,7 @@ export {
   UserIcon,
   CountryIcon,
   FormIcon,
+  UploadIcon,
+  PlusSolidIcon,
+  DeleteBlackIcon,
 };

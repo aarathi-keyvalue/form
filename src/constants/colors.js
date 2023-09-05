@@ -3,4 +3,5 @@ export const COLORS = {
   SLATE_GREY: "#7E818D",
   PRIMARY_COLOR: "#2653F1",
   DAVY_GREY: "#4B5563",
+  WHITE: "#FFF",
 };

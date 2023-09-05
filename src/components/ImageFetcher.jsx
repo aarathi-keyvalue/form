@@ -15,7 +15,6 @@ const ImageFetcher = ({
   setValue,
   image = "",
   setImage = () => {},
-  watch,
   error,
 }) => {
   const { ref } = register(name);
@@ -112,6 +111,7 @@ const ImageFetcher = ({
                   imgSrc={imgSrc}
                   setShowModal={setShowModal}
                   handleCropClick={handleCropClick}
+                  aspect={1}
                 />
               </div>
             </Modal>

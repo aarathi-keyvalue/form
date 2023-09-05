@@ -10,6 +10,10 @@ import Modal from "./Modal";
 import TopBar from "./TopBar";
 import ImageCropper from "./ImageCropper";
 import SortableList from "./SortableList";
+import FileUploader from "./FileUploader";
+import AutoComplete from "./AutoComplete";
+import CustomDatePicker from "./DatePicker";
+import Stepper from "./Stepper";
 
 export {
   Button,
@@ -24,4 +28,8 @@ export {
   TopBar,
   ImageCropper,
   SortableList,
+  FileUploader,
+  AutoComplete,
+  CustomDatePicker,
+  Stepper,
 };
